@@ -234,48 +234,12 @@
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JLabel" name="lblCampo1">
-              <Properties>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                    <LineBorder>
-                      <Value PropertyName="color" id=""/>
-                    </LineBorder>
-                  </Border>
-                </Property>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblCampo2">
-              <Properties>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                    <LineBorder>
-                      <Value PropertyName="color" id=""/>
-                    </LineBorder>
-                  </Border>
-                </Property>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblCampo3">
-              <Properties>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                    <LineBorder>
-                      <Value PropertyName="color" id=""/>
-                    </LineBorder>
-                  </Border>
-                </Property>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblCampo4">
-              <Properties>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                    <LineBorder>
-                      <Value PropertyName="color" id=""/>
-                    </LineBorder>
-                  </Border>
-                </Property>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblVereadorTxt">
               <Properties>
@@ -350,15 +314,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblCampo5">
-              <Properties>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                    <LineBorder>
-                      <Value PropertyName="color" id=""/>
-                    </LineBorder>
-                  </Border>
-                </Property>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblAviso2">
               <Properties>
@@ -474,7 +429,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\232.975989\Downloads\GitHubUrna\UrnaEletronica\UrnaEletronica\resources\images\n1.jpg"/>
+              <Image iconType="3" name="/images/n1.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="1"/>
             <Property name="borderPainted" type="boolean" value="false"/>
@@ -490,9 +445,6 @@
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\232.975989\Downloads\GitHubUrna\UrnaEletronica\UrnaEletronica\resources\images\n2.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="2"/>
             <Property name="borderPainted" type="boolean" value="false"/>
@@ -512,9 +464,6 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\232.975989\Downloads\GitHubUrna\UrnaEletronica\UrnaEletronica\resources\images\n3.jpg"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="3"/>
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
@@ -533,9 +482,6 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\232.975989\Downloads\GitHubUrna\UrnaEletronica\UrnaEletronica\resources\images\n4.jpg"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="1"/>
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
@@ -550,9 +496,6 @@
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\232.975989\Downloads\GitHubUrna\UrnaEletronica\UrnaEletronica\resources\images\n5.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="1"/>
             <Property name="borderPainted" type="boolean" value="false"/>
@@ -569,9 +512,6 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\232.975989\Downloads\GitHubUrna\UrnaEletronica\UrnaEletronica\resources\images\n6.jpg"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="1"/>
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
@@ -586,9 +526,6 @@
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\232.975989\Downloads\GitHubUrna\UrnaEletronica\UrnaEletronica\resources\images\n7.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="1"/>
             <Property name="borderPainted" type="boolean" value="false"/>
@@ -605,9 +542,6 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\232.975989\Downloads\GitHubUrna\UrnaEletronica\UrnaEletronica\resources\images\n8.jpg"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="1"/>
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
@@ -622,9 +556,6 @@
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\232.975989\Downloads\GitHubUrna\UrnaEletronica\UrnaEletronica\resources\images\n9.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="1"/>
             <Property name="borderPainted" type="boolean" value="false"/>
@@ -641,9 +572,6 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\232.975989\Downloads\GitHubUrna\UrnaEletronica\UrnaEletronica\resources\images\n0.jpg"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="1"/>
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
@@ -658,9 +586,6 @@
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\232.975989\Downloads\GitHubUrna\UrnaEletronica\UrnaEletronica\resources\images\branco.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="1"/>
             <Property name="borderPainted" type="boolean" value="false"/>
@@ -677,9 +602,6 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\232.975989\Downloads\GitHubUrna\UrnaEletronica\UrnaEletronica\resources\images\corrige.jpg"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="1"/>
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
@@ -694,9 +616,6 @@
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\232.975989\Downloads\GitHubUrna\UrnaEletronica\UrnaEletronica\resources\images\confirma.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="1"/>
             <Property name="borderPainted" type="boolean" value="false"/>

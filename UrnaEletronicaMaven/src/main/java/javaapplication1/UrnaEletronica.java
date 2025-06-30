@@ -94,14 +94,6 @@ public class UrnaEletronica extends javax.swing.JFrame {
 
         telaTreinamento.setBackground(new java.awt.Color(255, 255, 255));
 
-        lblCampo1.setBorder(javax.swing.BorderFactory.createLineBorder(null));
-
-        lblCampo2.setBorder(javax.swing.BorderFactory.createLineBorder(null));
-
-        lblCampo3.setBorder(javax.swing.BorderFactory.createLineBorder(null));
-
-        lblCampo4.setBorder(javax.swing.BorderFactory.createLineBorder(null));
-
         lblVereadorTxt.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
         lblVereadorTxt.setText("Vereador");
 
@@ -125,8 +117,6 @@ public class UrnaEletronica extends javax.swing.JFrame {
         lblVotouTxt.setText("VOTOU");
 
         lblAviso1.setText("Aperte a Tecla: CONFIRMA para CONFIRMAR este voto");
-
-        lblCampo5.setBorder(javax.swing.BorderFactory.createLineBorder(null));
 
         lblAviso2.setText("CORRIGE para REINICIAR este voto");
 
@@ -245,14 +235,13 @@ public class UrnaEletronica extends javax.swing.JFrame {
         btnNum1.setBackground(new java.awt.Color(0, 0, 0));
         btnNum1.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
         btnNum1.setForeground(new java.awt.Color(255, 255, 255));
-        btnNum1.setIcon(new javax.swing.ImageIcon("C:\\Users\\232.975989\\Downloads\\GitHubUrna\\UrnaEletronica\\UrnaEletronica\\resources\\images\\n1.jpg")); // NOI18N
+        btnNum1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/n1.jpg"))); // NOI18N
         btnNum1.setText("1");
         btnNum1.setBorderPainted(false);
 
         btnNum2.setBackground(new java.awt.Color(0, 0, 0));
         btnNum2.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
         btnNum2.setForeground(new java.awt.Color(255, 255, 255));
-        btnNum2.setIcon(new javax.swing.ImageIcon("C:\\Users\\232.975989\\Downloads\\GitHubUrna\\UrnaEletronica\\UrnaEletronica\\resources\\images\\n2.jpg")); // NOI18N
         btnNum2.setText("2");
         btnNum2.setBorderPainted(false);
         btnNum2.addActionListener(new java.awt.event.ActionListener() {
@@ -264,7 +253,6 @@ public class UrnaEletronica extends javax.swing.JFrame {
         btnNum3.setBackground(new java.awt.Color(0, 0, 0));
         btnNum3.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
         btnNum3.setForeground(new java.awt.Color(255, 255, 255));
-        btnNum3.setIcon(new javax.swing.ImageIcon("C:\\Users\\232.975989\\Downloads\\GitHubUrna\\UrnaEletronica\\UrnaEletronica\\resources\\images\\n3.jpg")); // NOI18N
         btnNum3.setText("3");
         btnNum3.setBorderPainted(false);
         btnNum3.addActionListener(new java.awt.event.ActionListener() {
@@ -276,70 +264,60 @@ public class UrnaEletronica extends javax.swing.JFrame {
         btnNum4.setBackground(new java.awt.Color(0, 0, 0));
         btnNum4.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
         btnNum4.setForeground(new java.awt.Color(255, 255, 255));
-        btnNum4.setIcon(new javax.swing.ImageIcon("C:\\Users\\232.975989\\Downloads\\GitHubUrna\\UrnaEletronica\\UrnaEletronica\\resources\\images\\n4.jpg")); // NOI18N
         btnNum4.setText("1");
         btnNum4.setBorderPainted(false);
 
         btnNum5.setBackground(new java.awt.Color(0, 0, 0));
         btnNum5.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
         btnNum5.setForeground(new java.awt.Color(255, 255, 255));
-        btnNum5.setIcon(new javax.swing.ImageIcon("C:\\Users\\232.975989\\Downloads\\GitHubUrna\\UrnaEletronica\\UrnaEletronica\\resources\\images\\n5.jpg")); // NOI18N
         btnNum5.setText("1");
         btnNum5.setBorderPainted(false);
 
         btnNum6.setBackground(new java.awt.Color(0, 0, 0));
         btnNum6.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
         btnNum6.setForeground(new java.awt.Color(255, 255, 255));
-        btnNum6.setIcon(new javax.swing.ImageIcon("C:\\Users\\232.975989\\Downloads\\GitHubUrna\\UrnaEletronica\\UrnaEletronica\\resources\\images\\n6.jpg")); // NOI18N
         btnNum6.setText("1");
         btnNum6.setBorderPainted(false);
 
         btnNum7.setBackground(new java.awt.Color(0, 0, 0));
         btnNum7.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
         btnNum7.setForeground(new java.awt.Color(255, 255, 255));
-        btnNum7.setIcon(new javax.swing.ImageIcon("C:\\Users\\232.975989\\Downloads\\GitHubUrna\\UrnaEletronica\\UrnaEletronica\\resources\\images\\n7.jpg")); // NOI18N
         btnNum7.setText("1");
         btnNum7.setBorderPainted(false);
 
         btnNum8.setBackground(new java.awt.Color(0, 0, 0));
         btnNum8.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
         btnNum8.setForeground(new java.awt.Color(255, 255, 255));
-        btnNum8.setIcon(new javax.swing.ImageIcon("C:\\Users\\232.975989\\Downloads\\GitHubUrna\\UrnaEletronica\\UrnaEletronica\\resources\\images\\n8.jpg")); // NOI18N
         btnNum8.setText("1");
         btnNum8.setBorderPainted(false);
 
         btnNum9.setBackground(new java.awt.Color(0, 0, 0));
         btnNum9.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
         btnNum9.setForeground(new java.awt.Color(255, 255, 255));
-        btnNum9.setIcon(new javax.swing.ImageIcon("C:\\Users\\232.975989\\Downloads\\GitHubUrna\\UrnaEletronica\\UrnaEletronica\\resources\\images\\n9.jpg")); // NOI18N
         btnNum9.setText("1");
         btnNum9.setBorderPainted(false);
 
         btnNum0.setBackground(new java.awt.Color(0, 0, 0));
         btnNum0.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
         btnNum0.setForeground(new java.awt.Color(255, 255, 255));
-        btnNum0.setIcon(new javax.swing.ImageIcon("C:\\Users\\232.975989\\Downloads\\GitHubUrna\\UrnaEletronica\\UrnaEletronica\\resources\\images\\n0.jpg")); // NOI18N
         btnNum0.setText("1");
         btnNum0.setBorderPainted(false);
 
         btnBranco.setBackground(new java.awt.Color(0, 0, 0));
         btnBranco.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
         btnBranco.setForeground(new java.awt.Color(255, 255, 255));
-        btnBranco.setIcon(new javax.swing.ImageIcon("C:\\Users\\232.975989\\Downloads\\GitHubUrna\\UrnaEletronica\\UrnaEletronica\\resources\\images\\branco.jpg")); // NOI18N
         btnBranco.setText("1");
         btnBranco.setBorderPainted(false);
 
         btnCorrige.setBackground(new java.awt.Color(0, 0, 0));
         btnCorrige.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
         btnCorrige.setForeground(new java.awt.Color(255, 255, 255));
-        btnCorrige.setIcon(new javax.swing.ImageIcon("C:\\Users\\232.975989\\Downloads\\GitHubUrna\\UrnaEletronica\\UrnaEletronica\\resources\\images\\corrige.jpg")); // NOI18N
         btnCorrige.setText("1");
         btnCorrige.setBorderPainted(false);
 
         btnConfirma.setBackground(new java.awt.Color(0, 0, 0));
         btnConfirma.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
         btnConfirma.setForeground(new java.awt.Color(255, 255, 255));
-        btnConfirma.setIcon(new javax.swing.ImageIcon("C:\\Users\\232.975989\\Downloads\\GitHubUrna\\UrnaEletronica\\UrnaEletronica\\resources\\images\\confirma.jpg")); // NOI18N
         btnConfirma.setText("1");
         btnConfirma.setBorderPainted(false);
 
