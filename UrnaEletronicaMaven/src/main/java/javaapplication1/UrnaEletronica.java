@@ -4,17 +4,33 @@
  */
 package javaapplication1;
 
+import Controller.UrnaController;
+
+import javax.swing.JLabel;
 /**
  *
  * @author 232.975989
  */
 public class UrnaEletronica extends javax.swing.JFrame {
-
+    private UrnaController controller;
+    private JLabel[] camposNumericos;
     /**
      * Creates new form view
      */
     public UrnaEletronica() {
         initComponents();
+        
+        controller = new UrnaController();
+        lblResult.setVisible(false);
+        lblPartido.setVisible(false);
+        lblNome.setVisible(false);
+        jSeparator1.setVisible(false);
+        lblAviso1.setVisible(false);
+        lblAviso2.setVisible(false);
+        lblVotouTxt.setVisible(false);
+        lblVotoErrado.setVisible(false);
+        
+        camposNumericos = new JLabel[]{lblCampo1, lblCampo2, lblCampo3, lblCampo4, lblCampo5};
     }
 
     /**
@@ -36,16 +52,16 @@ public class UrnaEletronica extends javax.swing.JFrame {
         lblVereadorTxt = new javax.swing.JLabel();
         lblTreinamentoTxt = new javax.swing.JLabel();
         lblNome = new javax.swing.JLabel();
-        lblPartido = new javax.swing.JLabel();
+        lblVotoErrado = new javax.swing.JLabel();
         lblNomeCandidato = new javax.swing.JLabel();
-        lblNomePartido = new javax.swing.JLabel();
         lblPersonagem = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        lblFimTxt = new javax.swing.JLabel();
+        lblResult = new javax.swing.JLabel();
         lblVotouTxt = new javax.swing.JLabel();
         lblAviso1 = new javax.swing.JLabel();
         lblCampo5 = new javax.swing.JLabel();
         lblAviso2 = new javax.swing.JLabel();
+        lblPartido = new javax.swing.JLabel();
         telaTeclado = new javax.swing.JPanel();
         btnNum1 = new javax.swing.JButton();
         btnNum2 = new javax.swing.JButton();
@@ -94,13 +110,13 @@ public class UrnaEletronica extends javax.swing.JFrame {
 
         telaTreinamento.setBackground(new java.awt.Color(255, 255, 255));
 
-        lblCampo1.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        lblCampo1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        lblCampo2.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        lblCampo2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        lblCampo3.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        lblCampo3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        lblCampo4.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        lblCampo4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lblVereadorTxt.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
         lblVereadorTxt.setText("Vereador");
@@ -112,13 +128,13 @@ public class UrnaEletronica extends javax.swing.JFrame {
         lblNome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblNome.setText("Nome:");
 
-        lblPartido.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblPartido.setText("Partido:");
+        lblVotoErrado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblVotoErrado.setText("NÚMERO ERRADO");
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
 
-        lblFimTxt.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
-        lblFimTxt.setText("FIM");
+        lblResult.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
+        lblResult.setText("FIM");
 
         lblVotouTxt.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
         lblVotouTxt.setForeground(new java.awt.Color(102, 102, 102));
@@ -126,53 +142,56 @@ public class UrnaEletronica extends javax.swing.JFrame {
 
         lblAviso1.setText("Aperte a Tecla: CONFIRMA para CONFIRMAR este voto");
 
-        lblCampo5.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        lblCampo5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lblAviso2.setText("CORRIGE para REINICIAR este voto");
+
+        lblPartido.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblPartido.setText("Partido:");
 
         javax.swing.GroupLayout telaTreinamentoLayout = new javax.swing.GroupLayout(telaTreinamento);
         telaTreinamento.setLayout(telaTreinamentoLayout);
         telaTreinamentoLayout.setHorizontalGroup(
             telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, telaTreinamentoLayout.createSequentialGroup()
-                .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(telaTreinamentoLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(telaTreinamentoLayout.createSequentialGroup()
-                                .addComponent(lblPartido)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblNomePartido, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblVotouTxt))
-                            .addGroup(telaTreinamentoLayout.createSequentialGroup()
-                                .addComponent(lblNome)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblNomeCandidato, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(telaTreinamentoLayout.createSequentialGroup()
                         .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(telaTreinamentoLayout.createSequentialGroup()
                                 .addGap(33, 33, 33)
                                 .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblVereadorTxt)
                                     .addGroup(telaTreinamentoLayout.createSequentialGroup()
-                                        .addComponent(lblCampo1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblCampo2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblCampo3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(lblVotoErrado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, telaTreinamentoLayout.createSequentialGroup()
+                                                .addComponent(lblCampo1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(lblCampo2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(lblCampo3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(lblCampo4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(lblCampo5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(89, 89, 89)
-                                        .addComponent(lblFimTxt))
-                                    .addComponent(lblVereadorTxt))
+                                        .addComponent(lblResult)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, telaTreinamentoLayout.createSequentialGroup()
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblTreinamentoTxt)
                                 .addGap(160, 160, 160)))
-                        .addComponent(lblPersonagem, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblPersonagem, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(telaTreinamentoLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(telaTreinamentoLayout.createSequentialGroup()
+                                .addComponent(lblNome)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblNomeCandidato, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblPartido))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblVotouTxt)))
                 .addGap(16, 16, 16))
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(telaTreinamentoLayout.createSequentialGroup()
@@ -200,22 +219,24 @@ public class UrnaEletronica extends javax.swing.JFrame {
                             .addComponent(lblCampo3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblCampo2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblCampo1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblFimTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblResult, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblCampo5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(lblPersonagem, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
-                .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNome)
-                    .addComponent(lblNomeCandidato, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
                 .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(telaTreinamentoLayout.createSequentialGroup()
-                        .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblPartido)
-                            .addComponent(lblNomePartido, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblVotouTxt))
+                        .addGap(90, 90, 90)
+                        .addComponent(lblVotouTxt))
+                    .addGroup(telaTreinamentoLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(lblVotoErrado)
+                        .addGap(38, 38, 38)
+                        .addComponent(lblPartido)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblNome)
+                            .addComponent(lblNomeCandidato, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblAviso1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -248,6 +269,11 @@ public class UrnaEletronica extends javax.swing.JFrame {
         btnNum1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/n1.jpg"))); // NOI18N
         btnNum1.setText("1");
         btnNum1.setBorderPainted(false);
+        btnNum1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNum1ActionPerformed(evt);
+            }
+        });
 
         btnNum2.setBackground(new java.awt.Color(0, 0, 0));
         btnNum2.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
@@ -279,6 +305,11 @@ public class UrnaEletronica extends javax.swing.JFrame {
         btnNum4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/n4.jpg"))); // NOI18N
         btnNum4.setText("1");
         btnNum4.setBorderPainted(false);
+        btnNum4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNum4ActionPerformed(evt);
+            }
+        });
 
         btnNum5.setBackground(new java.awt.Color(0, 0, 0));
         btnNum5.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
@@ -286,6 +317,11 @@ public class UrnaEletronica extends javax.swing.JFrame {
         btnNum5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/n5.jpg"))); // NOI18N
         btnNum5.setText("1");
         btnNum5.setBorderPainted(false);
+        btnNum5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNum5ActionPerformed(evt);
+            }
+        });
 
         btnNum6.setBackground(new java.awt.Color(0, 0, 0));
         btnNum6.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
@@ -293,6 +329,11 @@ public class UrnaEletronica extends javax.swing.JFrame {
         btnNum6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/n6.jpg"))); // NOI18N
         btnNum6.setText("1");
         btnNum6.setBorderPainted(false);
+        btnNum6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNum6ActionPerformed(evt);
+            }
+        });
 
         btnNum7.setBackground(new java.awt.Color(0, 0, 0));
         btnNum7.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
@@ -300,6 +341,11 @@ public class UrnaEletronica extends javax.swing.JFrame {
         btnNum7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/n7.jpg"))); // NOI18N
         btnNum7.setText("1");
         btnNum7.setBorderPainted(false);
+        btnNum7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNum7ActionPerformed(evt);
+            }
+        });
 
         btnNum8.setBackground(new java.awt.Color(0, 0, 0));
         btnNum8.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
@@ -307,6 +353,11 @@ public class UrnaEletronica extends javax.swing.JFrame {
         btnNum8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/n8.jpg"))); // NOI18N
         btnNum8.setText("1");
         btnNum8.setBorderPainted(false);
+        btnNum8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNum8ActionPerformed(evt);
+            }
+        });
 
         btnNum9.setBackground(new java.awt.Color(0, 0, 0));
         btnNum9.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
@@ -314,6 +365,11 @@ public class UrnaEletronica extends javax.swing.JFrame {
         btnNum9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/n9.jpg"))); // NOI18N
         btnNum9.setText("1");
         btnNum9.setBorderPainted(false);
+        btnNum9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNum9ActionPerformed(evt);
+            }
+        });
 
         btnNum0.setBackground(new java.awt.Color(0, 0, 0));
         btnNum0.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
@@ -321,6 +377,11 @@ public class UrnaEletronica extends javax.swing.JFrame {
         btnNum0.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/n0.jpg"))); // NOI18N
         btnNum0.setText("1");
         btnNum0.setBorderPainted(false);
+        btnNum0.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNum0ActionPerformed(evt);
+            }
+        });
 
         btnBranco.setBackground(new java.awt.Color(0, 0, 0));
         btnBranco.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
@@ -328,6 +389,11 @@ public class UrnaEletronica extends javax.swing.JFrame {
         btnBranco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/branco.jpg"))); // NOI18N
         btnBranco.setText("1");
         btnBranco.setBorderPainted(false);
+        btnBranco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBrancoActionPerformed(evt);
+            }
+        });
 
         btnCorrige.setBackground(new java.awt.Color(0, 0, 0));
         btnCorrige.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
@@ -335,6 +401,11 @@ public class UrnaEletronica extends javax.swing.JFrame {
         btnCorrige.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/corrige.jpg"))); // NOI18N
         btnCorrige.setText("1");
         btnCorrige.setBorderPainted(false);
+        btnCorrige.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCorrigeActionPerformed(evt);
+            }
+        });
 
         btnConfirma.setBackground(new java.awt.Color(0, 0, 0));
         btnConfirma.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
@@ -518,8 +589,6 @@ public class UrnaEletronica extends javax.swing.JFrame {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\232.975989\\Pictures\\logo.PNG")); // NOI18N
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -538,7 +607,7 @@ public class UrnaEletronica extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(92, Short.MAX_VALUE)
+                .addContainerGap(66, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -555,17 +624,133 @@ public class UrnaEletronica extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNum2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum2ActionPerformed
-        // TODO add your handling code here:
+        controller.adicionarDigitos("2");
+        setDigitosNaTela();
     }//GEN-LAST:event_btnNum2ActionPerformed
 
     private void btnNum3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum3ActionPerformed
-        // TODO add your handling code here:
+        controller.adicionarDigitos("3");
+        setDigitosNaTela();
     }//GEN-LAST:event_btnNum3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        controller.adicionarDigitos("5");
+        setDigitosNaTela();
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void btnNum1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum1ActionPerformed
+        controller.adicionarDigitos("1");
+        setDigitosNaTela();
+    }//GEN-LAST:event_btnNum1ActionPerformed
+
+    private void btnNum4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum4ActionPerformed
+        controller.adicionarDigitos("4");
+        setDigitosNaTela();
+    }//GEN-LAST:event_btnNum4ActionPerformed
+
+    private void btnNum6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum6ActionPerformed
+        controller.adicionarDigitos("6");
+        setDigitosNaTela();
+    }//GEN-LAST:event_btnNum6ActionPerformed
+
+    private void btnNum7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum7ActionPerformed
+        controller.adicionarDigitos("7");
+        setDigitosNaTela();
+    }//GEN-LAST:event_btnNum7ActionPerformed
+
+    private void btnNum8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum8ActionPerformed
+        controller.adicionarDigitos("8");
+        setDigitosNaTela();
+    }//GEN-LAST:event_btnNum8ActionPerformed
+
+    private void btnNum9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum9ActionPerformed
+        controller.adicionarDigitos("9");
+        setDigitosNaTela();
+    }//GEN-LAST:event_btnNum9ActionPerformed
+
+    private void btnNum0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum0ActionPerformed
+        controller.adicionarDigitos("0");
+        setDigitosNaTela();
+    }//GEN-LAST:event_btnNum0ActionPerformed
+
+    private void btnBrancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrancoActionPerformed
+        if (camposNumericos[0].getText().isEmpty()) {
+            jSeparator1.setVisible(true);
+            lblResult.setVisible(true);
+            lblAviso1.setVisible(true);
+            lblAviso2.setVisible(true);
+            lblResult.setText("VOTO EM BRANCO");
+            lblAviso1.setText("Aperte a tecla: CONFIRMA para CONFIRMAR este voto");
+            lblAviso2.setText("CORRIGE para REINICIAR este voto");
+        } else {
+            jSeparator1.setVisible(true);
+            lblAviso1.setVisible(true);
+            lblAviso2.setVisible(true);
+            lblAviso1.setText("Para votar em BRANCO o campo de voto deve estar vazio.");
+            lblAviso2.setText("Aperte CORRIGE para apagar o campo de voto.");
+            
+        }
+    }//GEN-LAST:event_btnBrancoActionPerformed
+
+    private void btnCorrigeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCorrigeActionPerformed
+        if (lblAviso1.getText() != "" || lblAviso2.getText() != "") {
+            lblAviso1.setVisible(false);
+            lblAviso2.setVisible(false);
+        }
+        if(lblResult.getText() == "VOTO EM BRANCO" ){
+            lblResult.setVisible(false);
+            lblResult.setText("");
+        }
+        
+        lblVotoErrado.setVisible(false);
+        
+        for (int i = 0; i < camposNumericos.length; i++) {
+            camposNumericos[i].setText("");
+        }
+        controller.limpar();
+        jSeparator1.setVisible(false);
+    }//GEN-LAST:event_btnCorrigeActionPerformed
+
+    public void validacaoPartidoDigitos(){
+        try {
+            int valor1 = Integer.parseInt(camposNumericos[0].getText());
+            int valor2 = Integer.parseInt(camposNumericos[1].getText());
+        
+        if(valor1 < 9 || valor2 < 1 || valor2 > 5){
+            lblVotoErrado.setVisible(true);
+            lblVotoErrado.setText("NÚMERO ERRADO");
+        }
+        
+        } catch (Exception e) {
+           
+        }
+    }
+    
+    public void validacaoCandidatos(){
+        try {
+            int valor1 = Integer.parseInt(camposNumericos[2].getText());
+            int valor2 = Integer.parseInt(camposNumericos[3].getText());
+            int valor3 = Integer.parseInt(camposNumericos[4].getText());
+            
+        } catch (Exception e) {
+            
+        }
+    }
+    
+    private void btnNum5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum5ActionPerformed
+        controller.adicionarDigitos("5");
+        setDigitosNaTela();
+    }//GEN-LAST:event_btnNum5ActionPerformed
+
+    public void setDigitosNaTela(){
+        String valorString = controller.getNumDigitados().toString();
+        
+        for (int i = 0; i < controller.getNumDigitados().length() && i < camposNumericos.length ; i++) {
+            camposNumericos[i].setText(String.valueOf(valorString.charAt(i)));
+        }
+        
+        validacaoPartidoDigitos();
+    }
     /**
      * @param args the command line arguments
      */
@@ -642,14 +827,14 @@ public class UrnaEletronica extends javax.swing.JFrame {
     private javax.swing.JLabel lblCampo3;
     private javax.swing.JLabel lblCampo4;
     private javax.swing.JLabel lblCampo5;
-    private javax.swing.JLabel lblFimTxt;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblNomeCandidato;
-    private javax.swing.JLabel lblNomePartido;
     private javax.swing.JLabel lblPartido;
     private javax.swing.JLabel lblPersonagem;
+    private javax.swing.JLabel lblResult;
     private javax.swing.JLabel lblTreinamentoTxt;
     private javax.swing.JLabel lblVereadorTxt;
+    private javax.swing.JLabel lblVotoErrado;
     private javax.swing.JLabel lblVotouTxt;
     private javax.swing.JPanel telaBackground;
     private javax.swing.JPanel telaTeclado;
