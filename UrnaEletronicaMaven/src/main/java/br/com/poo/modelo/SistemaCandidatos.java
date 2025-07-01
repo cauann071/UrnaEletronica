@@ -1,7 +1,7 @@
 package br.com.poo.modelo;
 
-import br.com.poo.modelo.Candidato;
-import br.com.poo.modelo.Candidato;
+import br.com.poo.mongodb.comoon.vo.Candidato;
+import br.com.poo.mongodb.comoon.vo.Candidato;
 import java.util.ArrayList;
 import java.util.List;
 

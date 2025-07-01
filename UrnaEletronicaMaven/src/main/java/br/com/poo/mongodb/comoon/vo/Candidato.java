@@ -1,15 +1,10 @@
-package br.com.poo.modelo;
+package br.com.poo.mongodb.comoon.vo;
 
 public class Candidato {
-    private Partido partidoCandidato;
+    //private Partido partidoCandidato;
     private String nome;
     private int numCandidato;
     
-    public Candidato(String nome,Partido partidoCandidato, int numCandidato){
-        this.nome = nome;
-        this.partidoCandidato = partidoCandidato;
-        this.numCandidato = numCandidato;
-    }
     
     public void setNome(String nome){
         this.nome = nome;
@@ -27,10 +22,10 @@ public class Candidato {
         return numCandidato; 
    }
 
-    @Override
-    public String toString() {
+    //@Override
+    //public String toString() {
         
-        return String.format("%d%03d", partidoCandidato.getNumero(), getNumCandidato());
-    }
+       // return String.format("%d%03d", partidoCandidato.getNumero(), getNumCandidato());
+    //}
     
 }

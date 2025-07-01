@@ -1,6 +1,6 @@
 package Controller;
 
-import javaapplication1.UrnaEletronica;
+import br.com.poo.presentation.UrnaEletronica;
 import javax.swing.JLabel;
 
 public class UrnaController {

@@ -2,10 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package javaapplication1;
+package br.com.poo.presentation;
 
 import Controller.UrnaController;
-
+import br.com.poo.mongodb.comoon.vo.Candidato;
+import br.com.poo.mongodb.service.ManterCandidato;
 import javax.swing.JLabel;
 /**
  *
@@ -14,12 +15,17 @@ import javax.swing.JLabel;
 public class UrnaEletronica extends javax.swing.JFrame {
     private UrnaController controller;
     private JLabel[] camposNumericos;
+    private StringBuilder numCandiadto;
+    private ManterCandidato service;
     /**
      * Creates new form view
      */
     public UrnaEletronica() {
         initComponents();
-        
+        service = new ManterCandidato();
+        nomeCandidatoBanco.setText("");
+        imageCandidato.setIcon(null);
+        numCandiadto = new StringBuilder();
         controller = new UrnaController();
         lblResult.setVisible(false);
         lblPartido.setVisible(false);
@@ -62,6 +68,8 @@ public class UrnaEletronica extends javax.swing.JFrame {
         lblCampo5 = new javax.swing.JLabel();
         lblAviso2 = new javax.swing.JLabel();
         lblPartido = new javax.swing.JLabel();
+        nomeCandidatoBanco = new javax.swing.JLabel();
+        imageCandidato = new javax.swing.JLabel();
         telaTeclado = new javax.swing.JPanel();
         btnNum1 = new javax.swing.JButton();
         btnNum2 = new javax.swing.JButton();
@@ -110,13 +118,13 @@ public class UrnaEletronica extends javax.swing.JFrame {
 
         telaTreinamento.setBackground(new java.awt.Color(255, 255, 255));
 
-        lblCampo1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblCampo1.setBorder(javax.swing.BorderFactory.createLineBorder(null));
 
-        lblCampo2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblCampo2.setBorder(javax.swing.BorderFactory.createLineBorder(null));
 
-        lblCampo3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblCampo3.setBorder(javax.swing.BorderFactory.createLineBorder(null));
 
-        lblCampo4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblCampo4.setBorder(javax.swing.BorderFactory.createLineBorder(null));
 
         lblVereadorTxt.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
         lblVereadorTxt.setText("Vereador");
@@ -142,12 +150,16 @@ public class UrnaEletronica extends javax.swing.JFrame {
 
         lblAviso1.setText("Aperte a Tecla: CONFIRMA para CONFIRMAR este voto");
 
-        lblCampo5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblCampo5.setBorder(javax.swing.BorderFactory.createLineBorder(null));
 
         lblAviso2.setText("CORRIGE para REINICIAR este voto");
 
         lblPartido.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblPartido.setText("Partido:");
+
+        nomeCandidatoBanco.setText("jLabel2");
+
+        imageCandidato.setText("jLabel2");
 
         javax.swing.GroupLayout telaTreinamentoLayout = new javax.swing.GroupLayout(telaTreinamento);
         telaTreinamento.setLayout(telaTreinamentoLayout);
@@ -176,18 +188,23 @@ public class UrnaEletronica extends javax.swing.JFrame {
                                         .addComponent(lblCampo5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(89, 89, 89)
                                         .addComponent(lblResult)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, telaTreinamentoLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE))
+                            .addGroup(telaTreinamentoLayout.createSequentialGroup()
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblTreinamentoTxt)
-                                .addGap(160, 160, 160)))
+                                .addGap(97, 97, 97)))
+                        .addGap(110, 110, 110)
+                        .addComponent(imageCandidato, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblPersonagem, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(telaTreinamentoLayout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(telaTreinamentoLayout.createSequentialGroup()
                                 .addComponent(lblNome)
-                                .addGap(18, 18, 18)
+                                .addGap(3, 3, 3)
+                                .addComponent(nomeCandidatoBanco)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblNomeCandidato, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lblPartido))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -207,34 +224,40 @@ public class UrnaEletronica extends javax.swing.JFrame {
         telaTreinamentoLayout.setVerticalGroup(
             telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(telaTreinamentoLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(telaTreinamentoLayout.createSequentialGroup()
-                        .addComponent(lblTreinamentoTxt)
-                        .addGap(40, 40, 40)
-                        .addComponent(lblVereadorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
+                        .addContainerGap()
                         .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblCampo4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCampo3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCampo2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCampo1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblResult, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCampo5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(lblPersonagem, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(telaTreinamentoLayout.createSequentialGroup()
+                                .addComponent(lblTreinamentoTxt)
+                                .addGap(40, 40, 40)
+                                .addComponent(lblVereadorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblCampo4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblCampo3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblCampo2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblCampo1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblResult, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblCampo5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(lblPersonagem, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(telaTreinamentoLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(imageCandidato, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(telaTreinamentoLayout.createSequentialGroup()
-                        .addGap(90, 90, 90)
+                        .addGap(76, 76, 76)
                         .addComponent(lblVotouTxt))
                     .addGroup(telaTreinamentoLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(4, 4, 4)
                         .addComponent(lblVotoErrado)
                         .addGap(38, 38, 38)
                         .addComponent(lblPartido)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblNome)
-                            .addComponent(lblNomeCandidato, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblNomeCandidato, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nomeCandidatoBanco))
                         .addGap(26, 26, 26)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -602,12 +625,12 @@ public class UrnaEletronica extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(telaTeclado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(66, Short.MAX_VALUE)
+                .addContainerGap(63, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -626,51 +649,59 @@ public class UrnaEletronica extends javax.swing.JFrame {
     private void btnNum2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum2ActionPerformed
         controller.adicionarDigitos("2");
         setDigitosNaTela();
+        numCandiadto.append("2");
     }//GEN-LAST:event_btnNum2ActionPerformed
 
     private void btnNum3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum3ActionPerformed
         controller.adicionarDigitos("3");
         setDigitosNaTela();
+        numCandiadto.append("3");
     }//GEN-LAST:event_btnNum3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        controller.adicionarDigitos("5");
-        setDigitosNaTela();
+
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void btnNum1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum1ActionPerformed
         controller.adicionarDigitos("1");
         setDigitosNaTela();
+        numCandiadto.append("1");
     }//GEN-LAST:event_btnNum1ActionPerformed
 
     private void btnNum4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum4ActionPerformed
         controller.adicionarDigitos("4");
         setDigitosNaTela();
+        numCandiadto.append("4");
     }//GEN-LAST:event_btnNum4ActionPerformed
 
     private void btnNum6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum6ActionPerformed
         controller.adicionarDigitos("6");
         setDigitosNaTela();
+        numCandiadto.append("6");
     }//GEN-LAST:event_btnNum6ActionPerformed
 
     private void btnNum7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum7ActionPerformed
         controller.adicionarDigitos("7");
         setDigitosNaTela();
+        numCandiadto.append("7");
     }//GEN-LAST:event_btnNum7ActionPerformed
 
     private void btnNum8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum8ActionPerformed
         controller.adicionarDigitos("8");
         setDigitosNaTela();
+        numCandiadto.append("8");
     }//GEN-LAST:event_btnNum8ActionPerformed
 
     private void btnNum9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum9ActionPerformed
         controller.adicionarDigitos("9");
         setDigitosNaTela();
+        numCandiadto.append("9");
     }//GEN-LAST:event_btnNum9ActionPerformed
 
     private void btnNum0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum0ActionPerformed
         controller.adicionarDigitos("0");
         setDigitosNaTela();
+        numCandiadto.append("0");
     }//GEN-LAST:event_btnNum0ActionPerformed
 
     private void btnBrancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrancoActionPerformed
@@ -740,6 +771,7 @@ public class UrnaEletronica extends javax.swing.JFrame {
     private void btnNum5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum5ActionPerformed
         controller.adicionarDigitos("5");
         setDigitosNaTela();
+        numCandiadto.append("5");
     }//GEN-LAST:event_btnNum5ActionPerformed
 
     public void setDigitosNaTela(){
@@ -751,6 +783,13 @@ public class UrnaEletronica extends javax.swing.JFrame {
         
         validacaoPartidoDigitos();
     }
+    
+    private void btnConfirmaActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        Candidato vo = service.findByNumber(Integer.parseInt(numCandiadto.toString()));
+        nomeCandidatoBanco.setText(vo.getNome());
+        imageCandidato.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/" + vo.getNumCandidato() + ".png")));
+
+    } 
     /**
      * @param args the command line arguments
      */
@@ -801,6 +840,7 @@ public class UrnaEletronica extends javax.swing.JFrame {
     private javax.swing.JButton btnNum7;
     private javax.swing.JButton btnNum8;
     private javax.swing.JButton btnNum9;
+    private javax.swing.JLabel imageCandidato;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel18;
@@ -836,6 +876,7 @@ public class UrnaEletronica extends javax.swing.JFrame {
     private javax.swing.JLabel lblVereadorTxt;
     private javax.swing.JLabel lblVotoErrado;
     private javax.swing.JLabel lblVotouTxt;
+    private javax.swing.JLabel nomeCandidatoBanco;
     private javax.swing.JPanel telaBackground;
     private javax.swing.JPanel telaTeclado;
     private javax.swing.JPanel telaTreinamento;
