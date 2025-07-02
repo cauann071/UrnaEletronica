@@ -18,4 +18,8 @@ public class UrnaController {
     public void limpar(){
         numDigitados.setLength(0);
     }
+    
+    public void corrige(){
+        
+    }
 }

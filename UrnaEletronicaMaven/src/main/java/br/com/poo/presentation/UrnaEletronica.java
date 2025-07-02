@@ -70,6 +70,7 @@ public class UrnaEletronica extends javax.swing.JFrame {
         lblPartido = new javax.swing.JLabel();
         nomeCandidatoBanco = new javax.swing.JLabel();
         imageCandidato = new javax.swing.JLabel();
+        lblNomePartido = new javax.swing.JLabel();
         telaTeclado = new javax.swing.JPanel();
         btnNum1 = new javax.swing.JButton();
         btnNum2 = new javax.swing.JButton();
@@ -118,13 +119,13 @@ public class UrnaEletronica extends javax.swing.JFrame {
 
         telaTreinamento.setBackground(new java.awt.Color(255, 255, 255));
 
-        lblCampo1.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        lblCampo1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        lblCampo2.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        lblCampo2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        lblCampo3.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        lblCampo3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        lblCampo4.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        lblCampo4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lblVereadorTxt.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
         lblVereadorTxt.setText("Vereador");
@@ -150,14 +151,12 @@ public class UrnaEletronica extends javax.swing.JFrame {
 
         lblAviso1.setText("Aperte a Tecla: CONFIRMA para CONFIRMAR este voto");
 
-        lblCampo5.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        lblCampo5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lblAviso2.setText("CORRIGE para REINICIAR este voto");
 
         lblPartido.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblPartido.setText("Partido:");
-
-        nomeCandidatoBanco.setText("jLabel2");
 
         imageCandidato.setText("jLabel2");
 
@@ -206,8 +205,11 @@ public class UrnaEletronica extends javax.swing.JFrame {
                                 .addComponent(nomeCandidatoBanco)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblNomeCandidato, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblPartido))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(telaTreinamentoLayout.createSequentialGroup()
+                                .addComponent(lblPartido)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblNomePartido, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 602, Short.MAX_VALUE)
                         .addComponent(lblVotouTxt)))
                 .addGap(16, 16, 16))
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -252,13 +254,15 @@ public class UrnaEletronica extends javax.swing.JFrame {
                         .addGap(4, 4, 4)
                         .addComponent(lblVotoErrado)
                         .addGap(38, 38, 38)
-                        .addComponent(lblPartido)
+                        .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblPartido)
+                            .addComponent(lblNomePartido, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblNome)
                             .addComponent(lblNomeCandidato, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(nomeCandidatoBanco))
-                        .addGap(26, 26, 26)
+                        .addGap(52, 52, 52)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblAviso1)
@@ -740,20 +744,52 @@ public class UrnaEletronica extends javax.swing.JFrame {
         }
         controller.limpar();
         jSeparator1.setVisible(false);
+        lblNomePartido.setVisible(false);
+        lblPartido.setVisible(false);
     }//GEN-LAST:event_btnCorrigeActionPerformed
 
-    public void validacaoPartidoDigitos(){
+public void validacaoPartidoDigitos(){
+        int valor1 = Integer.parseInt(camposNumericos[0].getText());
+        int valor2 = Integer.parseInt(camposNumericos[1].getText());
+        
         try {
-            int valor1 = Integer.parseInt(camposNumericos[0].getText());
-            int valor2 = Integer.parseInt(camposNumericos[1].getText());
         
         if(valor1 < 9 || valor2 < 1 || valor2 > 5){
             lblVotoErrado.setVisible(true);
             lblVotoErrado.setText("NÚMERO ERRADO");
         }
         
+        if(valor1 == 9 && valor2 == 1){
+            lblPartido.setVisible(true);
+            lblNomePartido.setVisible(true);
+            lblNomePartido.setText("PEsp");
+        }
+        else if(valor1 == 9 && valor2 == 2){
+            lblPartido.setVisible(true);
+            lblNomePartido.setVisible(true);
+            lblNomePartido.setText("PMus");
+        }
+        else if(valor1 == 9 && valor2 == 3){
+            lblPartido.setVisible(true);
+            lblNomePartido.setVisible(true);
+            lblNomePartido.setText("PProf");
+        }
+        else if(valor1 == 9 && valor2 == 4){
+            lblPartido.setVisible(true);
+            lblNomePartido.setVisible(true);
+            lblNomePartido.setText("PFest");
+        }
+        else if(valor1 == 9 && valor2 == 5){
+            lblPartido.setVisible(true);
+            lblNomePartido.setVisible(true);
+            lblNomePartido.setText("PFolc");
+        }
+        
+        validacaoCandidatos();
+        
         } catch (Exception e) {
-           
+            System.out.println("ERRO");
+            
         }
     }
     
@@ -763,6 +799,10 @@ public class UrnaEletronica extends javax.swing.JFrame {
             int valor2 = Integer.parseInt(camposNumericos[3].getText());
             int valor3 = Integer.parseInt(camposNumericos[4].getText());
             
+            if(valor1 != 0 || valor2 != 0 || valor3 == 0 || valor3 > 3){
+                lblVotoErrado.setVisible(true);
+                lblVotoErrado.setText("CANDIDATO INEXISTENTE");
+            }
         } catch (Exception e) {
             
         }
@@ -869,6 +909,7 @@ public class UrnaEletronica extends javax.swing.JFrame {
     private javax.swing.JLabel lblCampo5;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblNomeCandidato;
+    private javax.swing.JLabel lblNomePartido;
     private javax.swing.JLabel lblPartido;
     private javax.swing.JLabel lblPersonagem;
     private javax.swing.JLabel lblResult;
