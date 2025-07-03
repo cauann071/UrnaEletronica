@@ -2,19 +2,44 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package javaapplication1;
+package br.com.poo.presentation;
 
-/**
- *
- * @author 232.975989
- */
+
+
+import javax.swing.ImageIcon;
+import br.com.poo.mongodb.comoon.vo.Candidato;
+import br.com.poo.mongodb.service.ManterCandidato;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import java.util.Map;
+import java.util.Comparator; 
+import java.util.LinkedHashMap; 
+import java.util.stream.Collectors;
+import java.util.List;
+import java.util.ArrayList;
 public class UrnaEletronica extends javax.swing.JFrame {
+   
+    private JLabel[] camposNumericos;
+    private StringBuilder numCandiadto;
+    private ManterCandidato service;
+    private boolean votoNuloFlag = false;
 
-    /**
-     * Creates new form view
-     */
     public UrnaEletronica() {
         initComponents();
+        service = new ManterCandidato();
+        nomeCandidatoBanco.setText("");
+        imageCandidato.setIcon(null);
+        numCandiadto = new StringBuilder();
+        lblResult.setVisible(false);
+        lblPartido.setVisible(false);
+        lblNome.setVisible(false);
+        jSeparator1.setVisible(false);
+        lblAviso1.setVisible(false);
+        lblAviso2.setVisible(false);
+        lblVotouTxt.setVisible(false);
+        lblVotoErrado.setVisible(false);
+        
+        camposNumericos = new JLabel[]{lblCampo1, lblCampo2, lblCampo3, lblCampo4, lblCampo5};
     }
 
     /**
@@ -36,16 +61,18 @@ public class UrnaEletronica extends javax.swing.JFrame {
         lblVereadorTxt = new javax.swing.JLabel();
         lblTreinamentoTxt = new javax.swing.JLabel();
         lblNome = new javax.swing.JLabel();
-        lblPartido = new javax.swing.JLabel();
-        lblNomeCandidato = new javax.swing.JLabel();
-        lblNomePartido = new javax.swing.JLabel();
+        lblVotoErrado = new javax.swing.JLabel();
+        nomeCandidatoBanco = new javax.swing.JLabel();
         lblPersonagem = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        lblFimTxt = new javax.swing.JLabel();
+        lblResult = new javax.swing.JLabel();
         lblVotouTxt = new javax.swing.JLabel();
         lblAviso1 = new javax.swing.JLabel();
         lblCampo5 = new javax.swing.JLabel();
         lblAviso2 = new javax.swing.JLabel();
+        lblPartido = new javax.swing.JLabel();
+        imageCandidato = new javax.swing.JLabel();
+        lblNomePartido = new javax.swing.JLabel();
         telaTeclado = new javax.swing.JPanel();
         btnNum1 = new javax.swing.JButton();
         btnNum2 = new javax.swing.JButton();
@@ -94,6 +121,14 @@ public class UrnaEletronica extends javax.swing.JFrame {
 
         telaTreinamento.setBackground(new java.awt.Color(255, 255, 255));
 
+        lblCampo1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        lblCampo2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        lblCampo3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        lblCampo4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         lblVereadorTxt.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
         lblVereadorTxt.setText("Vereador");
 
@@ -104,13 +139,13 @@ public class UrnaEletronica extends javax.swing.JFrame {
         lblNome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblNome.setText("Nome:");
 
-        lblPartido.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblPartido.setText("Partido:");
+        lblVotoErrado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblVotoErrado.setText("NÚMERO ERRADO");
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
 
-        lblFimTxt.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
-        lblFimTxt.setText("FIM");
+        lblResult.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
+        lblResult.setText("FIM");
 
         lblVotouTxt.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
         lblVotouTxt.setForeground(new java.awt.Color(102, 102, 102));
@@ -118,51 +153,64 @@ public class UrnaEletronica extends javax.swing.JFrame {
 
         lblAviso1.setText("Aperte a Tecla: CONFIRMA para CONFIRMAR este voto");
 
+        lblCampo5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         lblAviso2.setText("CORRIGE para REINICIAR este voto");
+
+        lblPartido.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblPartido.setText("Partido:");
+
+        imageCandidato.setLabelFor(imageCandidato);
 
         javax.swing.GroupLayout telaTreinamentoLayout = new javax.swing.GroupLayout(telaTreinamento);
         telaTreinamento.setLayout(telaTreinamentoLayout);
         telaTreinamentoLayout.setHorizontalGroup(
             telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, telaTreinamentoLayout.createSequentialGroup()
-                .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(telaTreinamentoLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(telaTreinamentoLayout.createSequentialGroup()
-                                .addComponent(lblPartido)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblNomePartido, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblVotouTxt))
-                            .addGroup(telaTreinamentoLayout.createSequentialGroup()
-                                .addComponent(lblNome)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblNomeCandidato, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(telaTreinamentoLayout.createSequentialGroup()
                         .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(telaTreinamentoLayout.createSequentialGroup()
                                 .addGap(33, 33, 33)
                                 .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblVereadorTxt)
                                     .addGroup(telaTreinamentoLayout.createSequentialGroup()
-                                        .addComponent(lblCampo1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblCampo2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblCampo3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(lblVotoErrado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, telaTreinamentoLayout.createSequentialGroup()
+                                                .addComponent(lblCampo1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(lblCampo2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(lblCampo3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(lblCampo4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(lblCampo5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(89, 89, 89)
-                                        .addComponent(lblFimTxt))
-                                    .addComponent(lblVereadorTxt))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, telaTreinamentoLayout.createSequentialGroup()
+                                        .addComponent(lblResult)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE))
+                            .addGroup(telaTreinamentoLayout.createSequentialGroup()
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblTreinamentoTxt)
-                                .addGap(160, 160, 160)))
-                        .addComponent(lblPersonagem, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(97, 97, 97)))
+                        .addGap(110, 110, 110)
+                        .addComponent(imageCandidato, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblPersonagem, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(telaTreinamentoLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(telaTreinamentoLayout.createSequentialGroup()
+                                .addComponent(lblNome)
+                                .addGap(9, 9, 9)
+                                .addComponent(nomeCandidatoBanco, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(telaTreinamentoLayout.createSequentialGroup()
+                                .addComponent(lblPartido)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblNomePartido, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 602, Short.MAX_VALUE)
+                        .addComponent(lblVotouTxt)))
                 .addGap(16, 16, 16))
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(telaTreinamentoLayout.createSequentialGroup()
@@ -178,34 +226,43 @@ public class UrnaEletronica extends javax.swing.JFrame {
         telaTreinamentoLayout.setVerticalGroup(
             telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(telaTreinamentoLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(telaTreinamentoLayout.createSequentialGroup()
-                        .addComponent(lblTreinamentoTxt)
-                        .addGap(40, 40, 40)
-                        .addComponent(lblVereadorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
+                        .addContainerGap()
                         .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblCampo4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCampo3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCampo2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCampo1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblFimTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCampo5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(lblPersonagem, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
-                .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNome)
-                    .addComponent(lblNomeCandidato, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                            .addGroup(telaTreinamentoLayout.createSequentialGroup()
+                                .addComponent(lblTreinamentoTxt)
+                                .addGap(40, 40, 40)
+                                .addComponent(lblVereadorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblCampo4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblCampo3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblCampo2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblCampo1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblResult, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblCampo5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(lblPersonagem, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(telaTreinamentoLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(imageCandidato, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(telaTreinamentoLayout.createSequentialGroup()
-                        .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(76, 76, 76)
+                        .addComponent(lblVotouTxt))
+                    .addGroup(telaTreinamentoLayout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(lblVotoErrado)
+                        .addGap(38, 38, 38)
+                        .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblPartido)
                             .addComponent(lblNomePartido, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblVotouTxt))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblNome)
+                            .addComponent(nomeCandidatoBanco, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(52, 52, 52)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblAviso1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -238,10 +295,16 @@ public class UrnaEletronica extends javax.swing.JFrame {
         btnNum1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/n1.jpg"))); // NOI18N
         btnNum1.setText("1");
         btnNum1.setBorderPainted(false);
+        btnNum1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNum1ActionPerformed(evt);
+            }
+        });
 
         btnNum2.setBackground(new java.awt.Color(0, 0, 0));
         btnNum2.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
         btnNum2.setForeground(new java.awt.Color(255, 255, 255));
+        btnNum2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/n2.jpg"))); // NOI18N
         btnNum2.setText("2");
         btnNum2.setBorderPainted(false);
         btnNum2.addActionListener(new java.awt.event.ActionListener() {
@@ -253,6 +316,7 @@ public class UrnaEletronica extends javax.swing.JFrame {
         btnNum3.setBackground(new java.awt.Color(0, 0, 0));
         btnNum3.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
         btnNum3.setForeground(new java.awt.Color(255, 255, 255));
+        btnNum3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/n3.jpg"))); // NOI18N
         btnNum3.setText("3");
         btnNum3.setBorderPainted(false);
         btnNum3.addActionListener(new java.awt.event.ActionListener() {
@@ -264,62 +328,122 @@ public class UrnaEletronica extends javax.swing.JFrame {
         btnNum4.setBackground(new java.awt.Color(0, 0, 0));
         btnNum4.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
         btnNum4.setForeground(new java.awt.Color(255, 255, 255));
+        btnNum4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/n4.jpg"))); // NOI18N
         btnNum4.setText("1");
         btnNum4.setBorderPainted(false);
+        btnNum4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNum4ActionPerformed(evt);
+            }
+        });
 
         btnNum5.setBackground(new java.awt.Color(0, 0, 0));
         btnNum5.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
         btnNum5.setForeground(new java.awt.Color(255, 255, 255));
+        btnNum5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/n5.jpg"))); // NOI18N
         btnNum5.setText("1");
         btnNum5.setBorderPainted(false);
+        btnNum5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNum5ActionPerformed(evt);
+            }
+        });
 
         btnNum6.setBackground(new java.awt.Color(0, 0, 0));
         btnNum6.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
         btnNum6.setForeground(new java.awt.Color(255, 255, 255));
+        btnNum6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/n6.jpg"))); // NOI18N
         btnNum6.setText("1");
         btnNum6.setBorderPainted(false);
+        btnNum6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNum6ActionPerformed(evt);
+            }
+        });
 
         btnNum7.setBackground(new java.awt.Color(0, 0, 0));
         btnNum7.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
         btnNum7.setForeground(new java.awt.Color(255, 255, 255));
+        btnNum7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/n7.jpg"))); // NOI18N
         btnNum7.setText("1");
         btnNum7.setBorderPainted(false);
+        btnNum7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNum7ActionPerformed(evt);
+            }
+        });
 
         btnNum8.setBackground(new java.awt.Color(0, 0, 0));
         btnNum8.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
         btnNum8.setForeground(new java.awt.Color(255, 255, 255));
+        btnNum8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/n8.jpg"))); // NOI18N
         btnNum8.setText("1");
         btnNum8.setBorderPainted(false);
+        btnNum8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNum8ActionPerformed(evt);
+            }
+        });
 
         btnNum9.setBackground(new java.awt.Color(0, 0, 0));
         btnNum9.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
         btnNum9.setForeground(new java.awt.Color(255, 255, 255));
+        btnNum9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/n9.jpg"))); // NOI18N
         btnNum9.setText("1");
         btnNum9.setBorderPainted(false);
+        btnNum9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNum9ActionPerformed(evt);
+            }
+        });
 
         btnNum0.setBackground(new java.awt.Color(0, 0, 0));
         btnNum0.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
         btnNum0.setForeground(new java.awt.Color(255, 255, 255));
+        btnNum0.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/n0.jpg"))); // NOI18N
         btnNum0.setText("1");
         btnNum0.setBorderPainted(false);
+        btnNum0.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNum0ActionPerformed(evt);
+            }
+        });
 
         btnBranco.setBackground(new java.awt.Color(0, 0, 0));
         btnBranco.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
         btnBranco.setForeground(new java.awt.Color(255, 255, 255));
+        btnBranco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/branco.jpg"))); // NOI18N
         btnBranco.setText("1");
         btnBranco.setBorderPainted(false);
+        btnBranco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBrancoActionPerformed(evt);
+            }
+        });
 
         btnCorrige.setBackground(new java.awt.Color(0, 0, 0));
         btnCorrige.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
         btnCorrige.setForeground(new java.awt.Color(255, 255, 255));
+        btnCorrige.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/corrige.jpg"))); // NOI18N
         btnCorrige.setText("1");
         btnCorrige.setBorderPainted(false);
+        btnCorrige.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCorrigeActionPerformed(evt);
+            }
+        });
 
         btnConfirma.setBackground(new java.awt.Color(0, 0, 0));
         btnConfirma.setFont(new java.awt.Font("Swis721 Lt BT", 0, 12)); // NOI18N
         btnConfirma.setForeground(new java.awt.Color(255, 255, 255));
+        btnConfirma.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/confirma.jpg"))); // NOI18N
         btnConfirma.setText("1");
         btnConfirma.setBorderPainted(false);
+        btnConfirma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout telaTecladoLayout = new javax.swing.GroupLayout(telaTeclado);
         telaTeclado.setLayout(telaTecladoLayout);
@@ -496,8 +620,6 @@ public class UrnaEletronica extends javax.swing.JFrame {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\232.975989\\Pictures\\logo.PNG")); // NOI18N
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -511,12 +633,12 @@ public class UrnaEletronica extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(telaTeclado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(92, Short.MAX_VALUE)
+                .addContainerGap(63, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -532,47 +654,502 @@ public class UrnaEletronica extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    private void appendAndSetDigit(String digit) {
+        
+        if (lblVotoErrado.isVisible()) {
+            lblVotoErrado.setVisible(false);
+            lblVotoErrado.setText("");
+        }
+        
+        if (votoNuloFlag || numCandiadto.length() == 0) {
+            btnCorrigeActionPerformed(null); 
+            votoNuloFlag = false; 
+        }
+
+        if (numCandiadto.length() < 5) { 
+            numCandiadto.append(digit);
+            setDigitosNaTela();
+        }
+    }
     private void btnNum2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum2ActionPerformed
-        // TODO add your handling code here:
+        appendAndSetDigit("2");
+        //numCandiadto.append("2");
+        //setDigitosNaTela();
     }//GEN-LAST:event_btnNum2ActionPerformed
 
     private void btnNum3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum3ActionPerformed
-        // TODO add your handling code here:
+        
+        appendAndSetDigit("3");
+        //numCandiadto.append("3");
+        //setDigitosNaTela();
     }//GEN-LAST:event_btnNum3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    private void btnNum1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum1ActionPerformed
+        
+        appendAndSetDigit("1");
+        //numCandiadto.append("1");
+        //setDigitosNaTela();
+    }//GEN-LAST:event_btnNum1ActionPerformed
+
+    private void btnNum4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum4ActionPerformed
+       
+        appendAndSetDigit("4");
+        //numCandiadto.append("4");
+        //setDigitosNaTela();
+    }//GEN-LAST:event_btnNum4ActionPerformed
+
+    private void btnNum6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum6ActionPerformed
+        
+        appendAndSetDigit("6");
+        //numCandiadto.append("6");
+        //setDigitosNaTela();
+    }//GEN-LAST:event_btnNum6ActionPerformed
+
+    private void btnNum7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum7ActionPerformed
+        
+        appendAndSetDigit("7");
+        //numCandiadto.append("7");
+        //setDigitosNaTela();
+    }//GEN-LAST:event_btnNum7ActionPerformed
+
+    private void btnNum8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum8ActionPerformed
+        
+        appendAndSetDigit("8");
+        //numCandiadto.append("8");
+        //setDigitosNaTela();
+    }//GEN-LAST:event_btnNum8ActionPerformed
+
+    private void btnNum9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum9ActionPerformed
+        
+        appendAndSetDigit("9");
+        //numCandiadto.append("9");
+        //setDigitosNaTela();
+    }//GEN-LAST:event_btnNum9ActionPerformed
+
+    private void btnNum0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum0ActionPerformed
+        
+        appendAndSetDigit("0");
+        //numCandiadto.append("0");
+        //setDigitosNaTela();
+    }//GEN-LAST:event_btnNum0ActionPerformed
+
+    private void btnBrancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrancoActionPerformed
+       
+        votoNuloFlag = false;
+        
+        for (JLabel campo : camposNumericos) {
+            campo.setText("");
+        }
+        numCandiadto.setLength(0); 
+
+       
+        lblNome.setVisible(false);
+        nomeCandidatoBanco.setText("");
+        nomeCandidatoBanco.setVisible(false);
+        imageCandidato.setIcon(null);
+        imageCandidato.setVisible(false);
+        lblPartido.setVisible(false);
+        lblNomePartido.setText("");
+        lblNomePartido.setVisible(false);
+        lblVotoErrado.setVisible(false);
+        lblVotoErrado.setText("");
+        lblResult.setVisible(true); 
+
+        jSeparator1.setVisible(true);
+        lblResult.setText("VOTO EM BRANCO");
+        lblAviso1.setVisible(true);
+        lblAviso2.setVisible(true);
+        lblAviso1.setText("Aperte a tecla: CONFIRMA para CONFIRMAR este voto");
+        lblAviso2.setText("CORRIGE para REINICIAR este voto");
+    }//GEN-LAST:event_btnBrancoActionPerformed
+
+    private void btnCorrigeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCorrigeActionPerformed
+        
+             lblAviso1.setVisible(false);
+        lblAviso2.setVisible(false);
+        lblResult.setVisible(false);
+        lblResult.setText("");
+        lblVotoErrado.setVisible(false);
+        lblVotoErrado.setText(""); 
+        lblVotouTxt.setVisible(false); 
+
+        for (JLabel campo : camposNumericos) {
+            campo.setText("");
+        }
+        numCandiadto.setLength(0); 
+        
+        jSeparator1.setVisible(false);
+        lblNomePartido.setVisible(false);
+        lblPartido.setVisible(false);
+        nomeCandidatoBanco.setText(""); 
+        nomeCandidatoBanco.setVisible(false); 
+        imageCandidato.setIcon(null); 
+        imageCandidato.setVisible(false); 
+        lblNome.setVisible(false);
+        lblNomePartido.setText("");
+        
+        votoNuloFlag = false;
+    }//GEN-LAST:event_btnCorrigeActionPerformed
+
+    public void validacaoPartidoDigitos() {
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+           
+            if (numCandiadto.length() >= 2) {
+                int valor1 = Character.getNumericValue(numCandiadto.charAt(0));
+                int valor2 = Character.getNumericValue(numCandiadto.charAt(1));
+
+                lblVotoErrado.setVisible(false); 
+                lblNomePartido.setText(""); 
+
+                if (valor1 == 9) {
+                    lblPartido.setVisible(true);
+                    lblNomePartido.setVisible(true);
+
+                    switch (valor2) {
+                        case 1 -> lblNomePartido.setText("PEsp");
+                        case 2 -> lblNomePartido.setText("PMus");
+                        case 3 -> lblNomePartido.setText("PProf");
+                        case 4 -> lblNomePartido.setText("PFest");
+                        case 5 -> lblNomePartido.setText("PFolc");
+                        default -> {
+                            lblNomePartido.setText(""); 
+                            lblVotoErrado.setVisible(true);
+                            lblVotoErrado.setText("PARTIDO INEXISTENTE");
+                        }
+                    }
+                } else {
+                    lblPartido.setVisible(false); 
+                    lblNomePartido.setVisible(false); 
+                }
+            } else {
+                lblPartido.setVisible(false);
+                lblNomePartido.setVisible(false);
+            }
+        } catch (Exception e) {
+            System.out.println("ERRO na validação do partido: " + e.getMessage());
+        }
+    }
+   
+    public void validacaoCandidatos(){
+        
+       try {
+           if (numCandiadto.length() == 5) {
+                int valor1 = Character.getNumericValue(numCandiadto.charAt(2));
+                int valor2 = Character.getNumericValue(numCandiadto.charAt(3));
+                int valor3 = Character.getNumericValue(numCandiadto.charAt(4));
+
+                lblVotoErrado.setVisible(false); 
+
+                
+                if (valor1 != 0 || valor2 != 0 || valor3 == 0 || valor3 > 3) {
+                    
+                }
+           }
+        } catch (Exception e) {
+            System.out.println("ERRO na validação dos últimos 3 dígitos: " + e.getMessage());
+        }
+    }
+
+    
+     public void setDigitosNaTela() {
+        String valorString = numCandiadto.toString();
+
+        
+        for (int i = 0; i < camposNumericos.length; i++) {
+            camposNumericos[i].setText("");
+        }
+
+        
+        for (int i = 0; i < valorString.length(); i++) {
+            camposNumericos[i].setText(String.valueOf(valorString.charAt(i)));
+        }
+
+        
+        lblNome.setVisible(false);
+        nomeCandidatoBanco.setText("");
+        imageCandidato.setIcon(null);
+        imageCandidato.setVisible(false);
+        lblVotoErrado.setVisible(false);
+        lblPartido.setVisible(false);
+        lblNomePartido.setVisible(false);
+        lblNomePartido.setText(""); 
+
+        if (valorString.length() >= 2) { 
+            validacaoPartidoDigitos();
+        }
+
+        if (valorString.length() == 5) {
+           
+            validacaoCandidatos(); 
+
+            try {
+                int numero = Integer.parseInt(valorString);
+                Candidato vo = service.findByNumber(numero);
+
+                if (vo != null) {
+                    lblNome.setVisible(true); 
+                    nomeCandidatoBanco.setVisible(true);
+                    nomeCandidatoBanco.setText(vo.getNome());
+                    
+                    
+                    String imagePath = "/images/" + vo.getNumCandidato() + ".png";
+                    java.net.URL imageUrl = getClass().getResource(imagePath);
+                    if (imageUrl != null) {
+                        imageCandidato.setIcon(new ImageIcon(imageUrl));
+                        imageCandidato.setVisible(true); 
+                    } else {
+                        imageCandidato.setIcon(null); 
+                        imageCandidato.setVisible(false); 
+                        System.out.println("Imagem não encontrada para o candidato: " + vo.getNumCandidato());
+                    }
+
+                    
+                    lblResult.setVisible(false);
+                    lblResult.setText("");
+                    lblAviso1.setVisible(false);
+                    lblAviso2.setVisible(false);
+                    lblVotoErrado.setVisible(false);
+                    
+                } else {
+                    
+                    lblVotoErrado.setVisible(true);
+                    lblVotoErrado.setText("CANDIDATO INEXISTENTE");
+                    lblNome.setVisible(false); 
+                    nomeCandidatoBanco.setText("");
+                    nomeCandidatoBanco.setVisible(false); 
+                    imageCandidato.setIcon(null); 
+                    imageCandidato.setVisible(false);
+                    
+                    votoNuloFlag = true;
+                }
+            } catch (NumberFormatException e) {
+                lblVotoErrado.setVisible(true);
+                lblVotoErrado.setText("NÚMERO INVÁLIDO");
+                System.err.println("Erro de formato de número: " + e.getMessage());
+                votoNuloFlag = true;
+            }
+        }
+    }
+    
+    private void btnNum5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum5ActionPerformed
+        
+       appendAndSetDigit("5");
+        //numCandiadto.append("5");
+        //setDigitosNaTela();
+    }//GEN-LAST:event_btnNum5ActionPerformed
+
+    private void btnConfirmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmaActionPerformed
+        lblVotouTxt.setVisible(false);
+        lblAviso1.setVisible(false);
+        lblAviso2.setVisible(false);
+        lblVotoErrado.setVisible(false); 
+        lblResult.setText("");
+        boolean votoRegistrado = false;
+        
+        if (numCandiadto.length() == 0) {
+            lblResult.setVisible(true);
+            lblResult.setText("VOTO EM BRANCO CONFIRMADO");
+            lblAviso1.setVisible(false); 
+            lblAviso2.setVisible(false);
+
+        try {
+                service.registrarVotoBranco(); 
+                System.out.println("Voto em branco registrado com sucesso!");
+            } catch (Exception e) {
+                System.err.println("Erro ao registrar voto em branco: " + e.getMessage());
+                lblResult.setText("ERRO AO REGISTRAR VOTO EM BRANCO");
+            }
+            return;
+        }
+        if(numCandiadto.length()==5){
+         try {
+                     int numeroDigitado = Integer.parseInt(numCandiadto.toString());    
+                        Candidato candidatoVotado = service.findByNumber(numeroDigitado);
+                        if (candidatoVotado != null) {
+                    
+                    lblResult.setVisible(true);
+                    lblResult.setText("VOTO CONFIRMADO");
+                    lblVotouTxt.setVisible(true); 
+
+                    try {
+                        
+                        service.registrarVoto(candidatoVotado);
+                        votoRegistrado = true;
+                        
+                    } catch (Exception e) {
+                        System.err.println("Erro ao registrar voto do candidato: " + e.getMessage());
+                        lblResult.setText("ERRO AO REGISTRAR VOTO");
+                    }
+
+                }else {
+                
+                lblResult.setVisible(true);
+                lblResult.setText("VOTO NULO CONFIRMADO");
+                lblVotouTxt.setVisible(true); // Exibe "VOTOU"
+
+                try {
+                    service.registrarVotoNulo(numCandiadto.toString());
+                    System.out.println("Voto nulo por candidato inexistente registrado com sucesso!");
+                    votoRegistrado = true;
+                } catch (Exception e) {
+                    System.err.println("Erro ao registrar voto nulo: " + e.getMessage());
+                    lblResult.setText("ERRO AO REGISTRAR VOTO NULO");
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UrnaEletronica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UrnaEletronica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UrnaEletronica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UrnaEletronica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+        } 
+         catch (NumberFormatException e) {
+            
+            lblResult.setVisible(true);
+            lblResult.setText("NÚMERO INVÁLIDO, APERTE CORRIGE");
+            lblVotouTxt.setVisible(false); 
 
-        /* Create and display the form */
+            try {
+                service.registrarVotoNulo(numCandiadto.toString());
+                System.out.println("Voto nulo por número inválido registrado com sucesso!");
+                votoRegistrado = true;
+            } catch (Exception ex) {
+                System.err.println("Erro ao registrar voto nulo por formato: " + ex.getMessage());
+                lblResult.setText("ERRO AO REGISTRAR VOTO NULO");
+            }
+        }
+    } else {
+        
+        lblResult.setVisible(true);
+        lblResult.setText("DIGITE 5 NÚMEROS OU VOTE EM BRANCO");
+        lblAviso1.setVisible(false);
+        lblAviso2.setVisible(false);
+        lblVotouTxt.setVisible(false);
+    }
+        if (votoRegistrado) {
+            int escolha = JOptionPane.showConfirmDialog(this,
+                    "Voto registrado com sucesso!\nDeseja realizar um novo voto?",
+                    "Continuar Votando?", JOptionPane.YES_NO_OPTION);
+
+            if (escolha == JOptionPane.YES_OPTION) {
+                // Se o usuário quer um novo voto, limpa a tela para a próxima votação.
+                btnCorrigeActionPerformed(null);
+            } else {
+                // Se o usuário não quer um novo voto, gera o relatório e encerra a aplicação.
+                gerarRelatorioEEncerrar();
+            }
+        }
+    
+}
+
+    private void gerarRelatorioEEncerrar() {
+        // Obtém o relatório de votos do serviço
+        Map<String, Long> relatorio = service.gerarRelatorioVotos();
+
+        StringBuilder relatorioMsg = new StringBuilder();
+        relatorioMsg.append("--- RELATÓRIO DE VOTAÇÃO ---\n");
+        relatorioMsg.append("Votos Válidos: ").append(relatorio.getOrDefault("votosValidos", 0L)).append("\n");
+        relatorioMsg.append("Votos Brancos: ").append(relatorio.getOrDefault("votosBrancos", 0L)).append("\n");
+        relatorioMsg.append("Votos Nulos: ").append(relatorio.getOrDefault("votosNulos", 0L)).append("\n");
+        relatorioMsg.append("\n--- Votos por Candidato ---\n");
+
+        List<Map.Entry<String, Long>> candidatosVotados = new ArrayList<>();
+        
+       for (Map.Entry<String, Long> entry : relatorio.entrySet()) {
+        // Verifica se a chave começa com o prefixo correto para votos de candidato
+        if (entry.getKey().startsWith("votosCandidato_")) {
+            // Adiciona a entrada à lista de candidatos votados
+            candidatosVotados.add(entry);
+
+            // Formata e adiciona ao relatório de mensagem (para exibir todos os candidatos)
+            // Divide em 3 partes: prefixo, numero, nome
+            String[] parts = entry.getKey().split("_", 3);
+            if (parts.length == 3) { // Garante que a chave está no formato esperado
+                String numeroCandidato = parts[1];
+                String nomeCandidato = parts[2];
+                long votosCandidato = entry.getValue();
+                relatorioMsg.append("Candidato ").append(numeroCandidato)
+                            .append(" (").append(nomeCandidato).append("): ")
+                            .append(votosCandidato).append(" votos\n");
+            }
+        }
+    }
+        /*
+        for (Map.Entry<String, Long> entry : relatorio.entrySet()) {
+            if (entry.getKey().startsWith("votosCandidato_")) {
+           
+                String[] parts = entry.getKey().split("_", 3); // Divide em 3 partes: prefixo, numero, nome
+                if (parts.length == 3) {
+                    String numeroCandidato = parts[1];
+                    String nomeCandidato = parts[2];
+                    long votosCandidato = entry.getValue();
+                    relatorioMsg.append("Candidato ").append(numeroCandidato)
+                                .append(" (").append(nomeCandidato).append("): ")
+                                .append(votosCandidato).append(" votos\n");
+                    
+                    if (votosCandidato > maiorVotos) {
+                        maiorVotos = votosCandidato;
+                        vencedorNome = nomeCandidato + " (" + numeroCandidato + ")";
+                        houveEmpate = false; // Reinicia a flag de empate
+                    } else if (votosCandidato == maiorVotos && maiorVotos > 0) {
+                        // Se houver um empate com um candidato que já tem votos
+                        houveEmpate = true;
+                        vencedorNome = "Empate"; // Define como empate
+                    }
+                    
+                }
+            }
+        }
+        */
+        relatorioMsg.append("\n--- RESULTADO FINAL ---\n");
+         if (!candidatosVotados.isEmpty()) { // Only proceed if there are actual candidate votes
+        // Ordena os candidatos por número de votos em ordem decrescente
+        candidatosVotados.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+
+        long maiorVotos = candidatosVotados.get(0).getValue();
+        List<String> vencedores = new ArrayList<>();
+
+        // Itera para encontrar todos os candidatos com o maior número de votos
+        for (Map.Entry<String, Long> entry : candidatosVotados) {
+            if (entry.getValue() == maiorVotos) {
+                String[] parts = entry.getKey().split("_", 3);
+                // Adiciona o nome e número do candidato à lista de vencedores
+                if (parts.length == 3) {
+                     vencedores.add(parts[2] + " (" + parts[1] + ")");
+                }
+            } else {
+                // Se os votos forem menores que o maior, pare de verificar,
+                // pois a lista está ordenada.
+                break;
+            }
+        }
+
+        if (vencedores.size() > 1) {
+            relatorioMsg.append("Houve um EMPATE entre os seguintes candidatos com ").append(maiorVotos).append(" votos:\n");
+            for (String vencedor : vencedores) {
+                relatorioMsg.append("- ").append(vencedor).append("\n");
+            }
+        } else {
+            relatorioMsg.append("Vencedor da Votação: ").append(vencedores.get(0)).append(" com ").append(maiorVotos).append(" votos!\n");
+        }
+    } else {
+        relatorioMsg.append("Não há votos válidos registrados para determinar um vencedor.\n");
+    }
+
+        // Exibe o relatório em uma caixa de diálogo
+        JOptionPane.showMessageDialog(this, relatorioMsg.toString(),
+                "Relatório Final da Urna", JOptionPane.INFORMATION_MESSAGE);
+
+        // Encerra a aplicação
+        System.exit(0);
+    }
+    
+ /*         
+    }//GEN-LAST:event_btnConfirmaActionPerformed
+  */      
+           
+
+    public static void main(String args[]) {
+      
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new UrnaEletronica().setVisible(true);
@@ -594,6 +1171,7 @@ public class UrnaEletronica extends javax.swing.JFrame {
     private javax.swing.JButton btnNum7;
     private javax.swing.JButton btnNum8;
     private javax.swing.JButton btnNum9;
+    private javax.swing.JLabel imageCandidato;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel18;
@@ -620,15 +1198,16 @@ public class UrnaEletronica extends javax.swing.JFrame {
     private javax.swing.JLabel lblCampo3;
     private javax.swing.JLabel lblCampo4;
     private javax.swing.JLabel lblCampo5;
-    private javax.swing.JLabel lblFimTxt;
     private javax.swing.JLabel lblNome;
-    private javax.swing.JLabel lblNomeCandidato;
     private javax.swing.JLabel lblNomePartido;
     private javax.swing.JLabel lblPartido;
     private javax.swing.JLabel lblPersonagem;
+    private javax.swing.JLabel lblResult;
     private javax.swing.JLabel lblTreinamentoTxt;
     private javax.swing.JLabel lblVereadorTxt;
+    private javax.swing.JLabel lblVotoErrado;
     private javax.swing.JLabel lblVotouTxt;
+    private javax.swing.JLabel nomeCandidatoBanco;
     private javax.swing.JPanel telaBackground;
     private javax.swing.JPanel telaTeclado;
     private javax.swing.JPanel telaTreinamento;
