@@ -12,6 +12,11 @@ import br.com.poo.mongodb.service.ManterCandidato;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.util.Map;
+import java.util.Comparator; 
+import java.util.LinkedHashMap; 
+import java.util.stream.Collectors;
+import java.util.List;
+import java.util.ArrayList;
 public class UrnaEletronica extends javax.swing.JFrame {
    
     private JLabel[] camposNumericos;
@@ -974,6 +979,7 @@ public class UrnaEletronica extends javax.swing.JFrame {
                     try {
                         
                         service.registrarVoto(candidatoVotado);
+                        votoRegistrado = true;
                         
                     } catch (Exception e) {
                         System.err.println("Erro ao registrar voto do candidato: " + e.getMessage());
@@ -987,9 +993,9 @@ public class UrnaEletronica extends javax.swing.JFrame {
                 lblVotouTxt.setVisible(true); // Exibe "VOTOU"
 
                 try {
-                   
                     service.registrarVotoNulo(numCandiadto.toString());
                     System.out.println("Voto nulo por candidato inexistente registrado com sucesso!");
+                    votoRegistrado = true;
                 } catch (Exception e) {
                     System.err.println("Erro ao registrar voto nulo: " + e.getMessage());
                     lblResult.setText("ERRO AO REGISTRAR VOTO NULO");
@@ -1003,9 +1009,9 @@ public class UrnaEletronica extends javax.swing.JFrame {
             lblVotouTxt.setVisible(false); 
 
             try {
-                
                 service.registrarVotoNulo(numCandiadto.toString());
                 System.out.println("Voto nulo por número inválido registrado com sucesso!");
+                votoRegistrado = true;
             } catch (Exception ex) {
                 System.err.println("Erro ao registrar voto nulo por formato: " + ex.getMessage());
                 lblResult.setText("ERRO AO REGISTRAR VOTO NULO");
@@ -1020,9 +1026,6 @@ public class UrnaEletronica extends javax.swing.JFrame {
         lblVotouTxt.setVisible(false);
     }
         if (votoRegistrado) {
-            // Damos um pequeno atraso para o usuário ler a mensagem de "VOTO CONFIRMADO"
-            // Isso pode ser feito com um Timer ou Thread.sleep, mas Thread.sleep congela a UI.
-            // Para um JFrame simples, JOptionPane é mais prático.
             int escolha = JOptionPane.showConfirmDialog(this,
                     "Voto registrado com sucesso!\nDeseja realizar um novo voto?",
                     "Continuar Votando?", JOptionPane.YES_NO_OPTION);
@@ -1040,7 +1043,7 @@ public class UrnaEletronica extends javax.swing.JFrame {
 
     private void gerarRelatorioEEncerrar() {
         // Obtém o relatório de votos do serviço
-        java.util.Map<String, Long> relatorio = service.gerarRelatorioVotos();
+        Map<String, Long> relatorio = service.gerarRelatorioVotos();
 
         StringBuilder relatorioMsg = new StringBuilder();
         relatorioMsg.append("--- RELATÓRIO DE VOTAÇÃO ---\n");
@@ -1049,18 +1052,88 @@ public class UrnaEletronica extends javax.swing.JFrame {
         relatorioMsg.append("Votos Nulos: ").append(relatorio.getOrDefault("votosNulos", 0L)).append("\n");
         relatorioMsg.append("\n--- Votos por Candidato ---\n");
 
-        // Itera sobre as chaves do mapa para encontrar os votos de cada candidato
+        List<Map.Entry<String, Long>> candidatosVotados = new ArrayList<>();
+        
+       for (Map.Entry<String, Long> entry : relatorio.entrySet()) {
+        // Verifica se a chave começa com o prefixo correto para votos de candidato
+        if (entry.getKey().startsWith("votosCandidato_")) {
+            // Adiciona a entrada à lista de candidatos votados
+            candidatosVotados.add(entry);
+
+            // Formata e adiciona ao relatório de mensagem (para exibir todos os candidatos)
+            // Divide em 3 partes: prefixo, numero, nome
+            String[] parts = entry.getKey().split("_", 3);
+            if (parts.length == 3) { // Garante que a chave está no formato esperado
+                String numeroCandidato = parts[1];
+                String nomeCandidato = parts[2];
+                long votosCandidato = entry.getValue();
+                relatorioMsg.append("Candidato ").append(numeroCandidato)
+                            .append(" (").append(nomeCandidato).append("): ")
+                            .append(votosCandidato).append(" votos\n");
+            }
+        }
+    }
+        /*
         for (Map.Entry<String, Long> entry : relatorio.entrySet()) {
             if (entry.getKey().startsWith("votosCandidato_")) {
-                // Formato da chave: "votosCandidato_NUMERO_NOME"
+           
                 String[] parts = entry.getKey().split("_", 3); // Divide em 3 partes: prefixo, numero, nome
                 if (parts.length == 3) {
-                    relatorioMsg.append("Candidato ").append(parts[1])
-                                .append(" (").append(parts[2]).append("): ")
-                                .append(entry.getValue()).append(" votos\n");
+                    String numeroCandidato = parts[1];
+                    String nomeCandidato = parts[2];
+                    long votosCandidato = entry.getValue();
+                    relatorioMsg.append("Candidato ").append(numeroCandidato)
+                                .append(" (").append(nomeCandidato).append("): ")
+                                .append(votosCandidato).append(" votos\n");
+                    
+                    if (votosCandidato > maiorVotos) {
+                        maiorVotos = votosCandidato;
+                        vencedorNome = nomeCandidato + " (" + numeroCandidato + ")";
+                        houveEmpate = false; // Reinicia a flag de empate
+                    } else if (votosCandidato == maiorVotos && maiorVotos > 0) {
+                        // Se houver um empate com um candidato que já tem votos
+                        houveEmpate = true;
+                        vencedorNome = "Empate"; // Define como empate
+                    }
+                    
                 }
             }
         }
+        */
+        relatorioMsg.append("\n--- RESULTADO FINAL ---\n");
+         if (!candidatosVotados.isEmpty()) { // Only proceed if there are actual candidate votes
+        // Ordena os candidatos por número de votos em ordem decrescente
+        candidatosVotados.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+
+        long maiorVotos = candidatosVotados.get(0).getValue();
+        List<String> vencedores = new ArrayList<>();
+
+        // Itera para encontrar todos os candidatos com o maior número de votos
+        for (Map.Entry<String, Long> entry : candidatosVotados) {
+            if (entry.getValue() == maiorVotos) {
+                String[] parts = entry.getKey().split("_", 3);
+                // Adiciona o nome e número do candidato à lista de vencedores
+                if (parts.length == 3) {
+                     vencedores.add(parts[2] + " (" + parts[1] + ")");
+                }
+            } else {
+                // Se os votos forem menores que o maior, pare de verificar,
+                // pois a lista está ordenada.
+                break;
+            }
+        }
+
+        if (vencedores.size() > 1) {
+            relatorioMsg.append("Houve um EMPATE entre os seguintes candidatos com ").append(maiorVotos).append(" votos:\n");
+            for (String vencedor : vencedores) {
+                relatorioMsg.append("- ").append(vencedor).append("\n");
+            }
+        } else {
+            relatorioMsg.append("Vencedor da Votação: ").append(vencedores.get(0)).append(" com ").append(maiorVotos).append(" votos!\n");
+        }
+    } else {
+        relatorioMsg.append("Não há votos válidos registrados para determinar um vencedor.\n");
+    }
 
         // Exibe o relatório em uma caixa de diálogo
         JOptionPane.showMessageDialog(this, relatorioMsg.toString(),
