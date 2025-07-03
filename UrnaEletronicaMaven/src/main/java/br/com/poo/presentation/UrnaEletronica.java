@@ -648,20 +648,20 @@ public class UrnaEletronica extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    // --- Métodos de ação dos botões numéricos ---
+    
     private void appendAndSetDigit(String digit) {
-        // Se já tiver uma mensagem de voto errado, apaga ela ao digitar
+        
         if (lblVotoErrado.isVisible()) {
             lblVotoErrado.setVisible(false);
             lblVotoErrado.setText("");
         }
-        // Se o voto foi nulo ou branco antes de digitar, reinicia a tela
+        
         if (votoNuloFlag || numCandiadto.length() == 0) {
-            btnCorrigeActionPerformed(null); // Chama o corrige para limpar a tela
-            votoNuloFlag = false; // Reseta a flag
+            btnCorrigeActionPerformed(null); 
+            votoNuloFlag = false; 
         }
 
-        if (numCandiadto.length() < 5) { // Permite apenas 5 dígitos
+        if (numCandiadto.length() < 5) { 
             numCandiadto.append(digit);
             setDigitosNaTela();
         }
@@ -792,7 +792,7 @@ public class UrnaEletronica extends javax.swing.JFrame {
 
     public void validacaoPartidoDigitos() {
         try {
-            // Verifica se há pelo menos 2 dígitos para validar o partido
+           
             if (numCandiadto.length() >= 2) {
                 int valor1 = Character.getNumericValue(numCandiadto.charAt(0));
                 int valor2 = Character.getNumericValue(numCandiadto.charAt(1));
@@ -941,7 +941,7 @@ public class UrnaEletronica extends javax.swing.JFrame {
         lblVotouTxt.setVisible(false);
         lblAviso1.setVisible(false);
         lblAviso2.setVisible(false);
-        lblVotoErrado.setVisible(false); // Garante que esta também seja limpa
+        lblVotoErrado.setVisible(false); 
         lblResult.setText("");
         
         if (numCandiadto.length() == 0) {
@@ -949,9 +949,9 @@ public class UrnaEletronica extends javax.swing.JFrame {
             lblResult.setText("VOTO EM BRANCO CONFIRMADO");
             lblAviso1.setVisible(false); 
             lblAviso2.setVisible(false);
-//REGISTRAR VOTO EM BRANCO AQUI
+
         try {
-                service.registrarVotoBranco(); // Chama o método na ManterCandidato
+                service.registrarVotoBranco(); 
                 System.out.println("Voto em branco registrado com sucesso!");
             } catch (Exception e) {
                 System.err.println("Erro ao registrar voto em branco: " + e.getMessage());
@@ -963,17 +963,14 @@ public class UrnaEletronica extends javax.swing.JFrame {
          try {
                      int numeroDigitado = Integer.parseInt(numCandiadto.toString());    
                         Candidato candidatoVotado = service.findByNumber(numeroDigitado);
-                        //service.registrarVoto(candidatoVotado); // Chama o método na ManterCandidato
-                        //System.out.println("Voto para o candidato " + candidatoVotado.getNome() + " registrado com sucesso!");
-                         if (candidatoVotado != null) {
-                    // --- Voto para um Candidato Válido ---
+                        if (candidatoVotado != null) {
+                    
                     lblResult.setVisible(true);
                     lblResult.setText("VOTO CONFIRMADO");
-                    lblVotouTxt.setVisible(true); // Exibe "VOTOU"
+                    lblVotouTxt.setVisible(true); 
 
                     try {
-                        // Chama o serviço para registrar o voto do candidato encontrado.
-                        // Passamos o objeto 'candidatoVotado' que contém todas as informações dele.
+                        
                         service.registrarVoto(candidatoVotado);
                         
                     } catch (Exception e) {
@@ -982,14 +979,13 @@ public class UrnaEletronica extends javax.swing.JFrame {
                     }
 
                 }else {
-                // --- Voto Nulo (Candidato Inexistente) ---
+                
                 lblResult.setVisible(true);
                 lblResult.setText("VOTO NULO CONFIRMADO");
                 lblVotouTxt.setVisible(true); // Exibe "VOTOU"
 
                 try {
-                    // Chama o serviço para registrar um voto nulo, passando o número digitado
-                    // para fins de registro.
+                   
                     service.registrarVotoNulo(numCandiadto.toString());
                     System.out.println("Voto nulo por candidato inexistente registrado com sucesso!");
                 } catch (Exception e) {
@@ -999,14 +995,13 @@ public class UrnaEletronica extends javax.swing.JFrame {
             }
         } 
          catch (NumberFormatException e) {
-            // --- Lógica para Número Inválido (que também resulta em Voto Nulo) ---
-            // Ocorre se o conteúdo de numCandiadto não puder ser convertido para um número.
+            
             lblResult.setVisible(true);
             lblResult.setText("NÚMERO INVÁLIDO, APERTE CORRIGE");
-            lblVotouTxt.setVisible(false); // Não exibe "VOTOU" imediatamente, pois o usuário precisa corrigir.
+            lblVotouTxt.setVisible(false); 
 
             try {
-                // Registra o voto como nulo devido ao formato inválido.
+                
                 service.registrarVotoNulo(numCandiadto.toString());
                 System.out.println("Voto nulo por número inválido registrado com sucesso!");
             } catch (Exception ex) {
@@ -1015,8 +1010,7 @@ public class UrnaEletronica extends javax.swing.JFrame {
             }
         }
     } else {
-        // --- Caso o número de dígitos não seja 5 e não seja voto em branco ---
-        // Isso impede a confirmação se o número não está completo.
+        
         lblResult.setVisible(true);
         lblResult.setText("DIGITE 5 NÚMEROS OU VOTE EM BRANCO");
         lblAviso1.setVisible(false);
