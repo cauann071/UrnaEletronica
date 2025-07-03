@@ -8,7 +8,7 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import org.bson.conversions.Bson;
-
+import com.mongodb.client.model.Updates;
 import java.util.Date; // Importar para usar timestamps
 
 /**
@@ -25,9 +25,20 @@ public class MongoDAO {
 
     private void connect() {
         if (mongoClient == null) {
-            mongoClient = MongoClients.create("mongodb://localhost:27017");
-            database = mongoClient.getDatabase("urnaBanco"); // Nome do seu banco de dados
-        }
+            
+        try {
+                mongoClient = MongoClients.create("mongodb://localhost:27017");
+                database = mongoClient.getDatabase("urnaBanco"); // Nome do seu banco de dados
+                // Garante que a coleção 'votos' existe. É boa prática criá-la se não existir.
+                createCollectionIfNotExists("votos");
+                // Garante que a coleção 'candidatos' existe.
+                createCollectionIfNotExists("candidatos");
+            } catch (Exception e) {
+                System.err.println("Erro ao conectar ao MongoDB: " + e.getMessage());
+                // Lidar com o erro de conexão, talvez relançar uma RuntimeException
+                // ou ter um mecanismo de retry.
+            }
+        } 
     }
 
     private void close() {
@@ -35,6 +46,20 @@ public class MongoDAO {
             mongoClient.close();
             mongoClient = null;
             database = null;
+        }
+    }
+
+    private void createCollectionIfNotExists(String collectionName) {
+        boolean exists = false;
+        for (String name : database.listCollectionNames()) {
+            if (name.equals(collectionName)) {
+                exists = true;
+                break;
+            }
+        }
+        if (!exists) {
+            database.createCollection(collectionName);
+            System.out.println("Coleção '" + collectionName + "' criada com sucesso.");
         }
     }
 
@@ -68,7 +93,35 @@ public class MongoDAO {
             close(); // Fecha a conexão
         }
     }
+    public void registrarVoto(Candidato candidato) {
+        connect();
+        try {
+            // Opção 1: Registrar o voto individual na coleção 'votos'
+            MongoCollection<Document> votosCollection = database.getCollection("votos");
+            Document votoDoc = new Document("tipoVoto", "CANDIDATO")
+                                    .append("numeroCandidato", candidato.getNumCandidato())
+                                    .append("nomeCandidato", candidato.getNome())
+                                    .append("dataHora", new Date());
+            votosCollection.insertOne(votoDoc);
+            System.out.println("Voto individual para " + candidato.getNome() + " registrado na coleção 'votos'.");
 
+            // Opção 2: Incrementar o contador de votos na coleção 'candidatos'
+            // Isso é útil para ter um total de votos por candidato diretamente no perfil dele.
+            MongoCollection<Document> candidatosCollection = database.getCollection("candidatos");
+            Bson filtro = Filters.eq("numero", candidato.getNumCandidato());
+            Bson atualizacao = Updates.inc("votos", 1); // Incrementa o campo 'votos' em 1.
+                                                        // Se 'votos' não existir, ele será criado com valor 1.
+            candidatosCollection.updateOne(filtro, atualizacao);
+            System.out.println("Contador de votos do candidato " + candidato.getNome() + " incrementado.");
+
+        } catch (Exception e) {
+            System.err.println("Erro ao registrar voto para o candidato " + candidato.getNome() + ": " + e.getMessage());
+        } finally {
+            close();
+        }
+    }
+
+    
     /**
      * Registra um voto nulo no banco de dados.
      * @param numeroDigitado O número que foi digitado resultando em voto nulo.
@@ -106,4 +159,6 @@ public class MongoDAO {
             close(); // Fecha a conexão
         }
     }
+
+   
 }

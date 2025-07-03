@@ -648,17 +648,35 @@ public class UrnaEletronica extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnNum2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum2ActionPerformed
+    // --- Métodos de ação dos botões numéricos ---
+    private void appendAndSetDigit(String digit) {
+        // Se já tiver uma mensagem de voto errado, apaga ela ao digitar
+        if (lblVotoErrado.isVisible()) {
+            lblVotoErrado.setVisible(false);
+            lblVotoErrado.setText("");
+        }
+        // Se o voto foi nulo ou branco antes de digitar, reinicia a tela
+        if (votoNuloFlag || numCandiadto.length() == 0) {
+            btnCorrigeActionPerformed(null); // Chama o corrige para limpar a tela
+            votoNuloFlag = false; // Reseta a flag
+        }
 
-        numCandiadto.append("2");
-        setDigitosNaTela();
+        if (numCandiadto.length() < 5) { // Permite apenas 5 dígitos
+            numCandiadto.append(digit);
+            setDigitosNaTela();
+        }
+    }
+    private void btnNum2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum2ActionPerformed
+        appendAndSetDigit("2");
+        //numCandiadto.append("2");
+        //setDigitosNaTela();
     }//GEN-LAST:event_btnNum2ActionPerformed
 
     private void btnNum3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum3ActionPerformed
         
-        
-        numCandiadto.append("3");
-        setDigitosNaTela();
+        appendAndSetDigit("3");
+        //numCandiadto.append("3");
+        //setDigitosNaTela();
     }//GEN-LAST:event_btnNum3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -667,51 +685,51 @@ public class UrnaEletronica extends javax.swing.JFrame {
 
     private void btnNum1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum1ActionPerformed
         
-        
-        numCandiadto.append("1");
-        setDigitosNaTela();
+        appendAndSetDigit("1");
+        //numCandiadto.append("1");
+        //setDigitosNaTela();
     }//GEN-LAST:event_btnNum1ActionPerformed
 
     private void btnNum4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum4ActionPerformed
        
-        
-        numCandiadto.append("4");
-        setDigitosNaTela();
+        appendAndSetDigit("4");
+        //numCandiadto.append("4");
+        //setDigitosNaTela();
     }//GEN-LAST:event_btnNum4ActionPerformed
 
     private void btnNum6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum6ActionPerformed
         
-        
-        numCandiadto.append("6");
-        setDigitosNaTela();
+        appendAndSetDigit("6");
+        //numCandiadto.append("6");
+        //setDigitosNaTela();
     }//GEN-LAST:event_btnNum6ActionPerformed
 
     private void btnNum7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum7ActionPerformed
         
-        
-        numCandiadto.append("7");
-        setDigitosNaTela();
+        appendAndSetDigit("7");
+        //numCandiadto.append("7");
+        //setDigitosNaTela();
     }//GEN-LAST:event_btnNum7ActionPerformed
 
     private void btnNum8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum8ActionPerformed
         
-        
-        numCandiadto.append("8");
-        setDigitosNaTela();
+        appendAndSetDigit("8");
+        //numCandiadto.append("8");
+        //setDigitosNaTela();
     }//GEN-LAST:event_btnNum8ActionPerformed
 
     private void btnNum9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum9ActionPerformed
         
-        
-        numCandiadto.append("9");
-        setDigitosNaTela();
+        appendAndSetDigit("9");
+        //numCandiadto.append("9");
+        //setDigitosNaTela();
     }//GEN-LAST:event_btnNum9ActionPerformed
 
     private void btnNum0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum0ActionPerformed
         
-        
-        numCandiadto.append("0");
-        setDigitosNaTela();
+        appendAndSetDigit("0");
+        //numCandiadto.append("0");
+        //setDigitosNaTela();
     }//GEN-LAST:event_btnNum0ActionPerformed
 
     private void btnBrancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrancoActionPerformed
@@ -768,6 +786,8 @@ public class UrnaEletronica extends javax.swing.JFrame {
         imageCandidato.setVisible(false); 
         lblNome.setVisible(false);
         lblNomePartido.setText("");
+        
+        votoNuloFlag = false;
     }//GEN-LAST:event_btnCorrigeActionPerformed
 
     public void validacaoPartidoDigitos() {
@@ -793,7 +813,7 @@ public class UrnaEletronica extends javax.swing.JFrame {
                         default -> {
                             lblNomePartido.setText(""); 
                             lblVotoErrado.setVisible(true);
-                            lblVotoErrado.setText("PARTIDO N\u00c3O ENCONTRADO");
+                            lblVotoErrado.setText("PARTIDO INEXISTENTE");
                         }
                     }
                 } else {
@@ -898,64 +918,119 @@ public class UrnaEletronica extends javax.swing.JFrame {
                     nomeCandidatoBanco.setVisible(false); 
                     imageCandidato.setIcon(null); 
                     imageCandidato.setVisible(false);
+                    
+                    votoNuloFlag = true;
                 }
             } catch (NumberFormatException e) {
                 lblVotoErrado.setVisible(true);
                 lblVotoErrado.setText("NÚMERO INVÁLIDO");
                 System.err.println("Erro de formato de número: " + e.getMessage());
+                votoNuloFlag = true;
             }
         }
     }
     
     private void btnNum5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum5ActionPerformed
         
-       
-        numCandiadto.append("5");
-        setDigitosNaTela();
+       appendAndSetDigit("5");
+        //numCandiadto.append("5");
+        //setDigitosNaTela();
     }//GEN-LAST:event_btnNum5ActionPerformed
 
     private void btnConfirmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmaActionPerformed
+        lblVotouTxt.setVisible(false);
+        lblAviso1.setVisible(false);
+        lblAviso2.setVisible(false);
+        lblVotoErrado.setVisible(false); // Garante que esta também seja limpa
+        lblResult.setText("");
+        
         if (numCandiadto.length() == 0) {
             lblResult.setVisible(true);
             lblResult.setText("VOTO EM BRANCO CONFIRMADO");
             lblAviso1.setVisible(false); 
             lblAviso2.setVisible(false);
 //REGISTRAR VOTO EM BRANCO AQUI
+        try {
+                service.registrarVotoBranco(); // Chama o método na ManterCandidato
+                System.out.println("Voto em branco registrado com sucesso!");
+            } catch (Exception e) {
+                System.err.println("Erro ao registrar voto em branco: " + e.getMessage());
+                lblResult.setText("ERRO AO REGISTRAR VOTO EM BRANCO");
+            }
             return;
         }
         if(numCandiadto.length()==5){
-        try {
-            int numero = Integer.parseInt(numCandiadto.toString());
-            Candidato vo = service.findByNumber(numero);
+         try {
+                     int numeroDigitado = Integer.parseInt(numCandiadto.toString());    
+                        Candidato candidatoVotado = service.findByNumber(numeroDigitado);
+                        //service.registrarVoto(candidatoVotado); // Chama o método na ManterCandidato
+                        //System.out.println("Voto para o candidato " + candidatoVotado.getNome() + " registrado com sucesso!");
+                         if (candidatoVotado != null) {
+                    // --- Voto para um Candidato Válido ---
+                    lblResult.setVisible(true);
+                    lblResult.setText("VOTO CONFIRMADO");
+                    lblVotouTxt.setVisible(true); // Exibe "VOTOU"
 
-            if (vo != null) {
-                lblResult.setVisible(true);
-                lblResult.setText("VOTO CONFIRMADO");
-                lblAviso1.setVisible(true);
-                lblAviso2.setVisible(false);
-                // Registrar voto no banco 
-                //service.registrarVoto(vo);
+                    try {
+                        // Chama o serviço para registrar o voto do candidato encontrado.
+                        // Passamos o objeto 'candidatoVotado' que contém todas as informações dele.
+                        service.registrarVoto(candidatoVotado);
+                        
+                    } catch (Exception e) {
+                        System.err.println("Erro ao registrar voto do candidato: " + e.getMessage());
+                        lblResult.setText("ERRO AO REGISTRAR VOTO");
+                    }
 
-            } else {
+                }else {
+                // --- Voto Nulo (Candidato Inexistente) ---
                 lblResult.setVisible(true);
-                lblResult.setText("CANDIDATO NÃO ENCONTRADO, APERTE CORRIGE");
-                lblAviso1.setVisible(false);
-                lblAviso2.setVisible(false);
+                lblResult.setText("VOTO NULO CONFIRMADO");
+                lblVotouTxt.setVisible(true); // Exibe "VOTOU"
+
+                try {
+                    // Chama o serviço para registrar um voto nulo, passando o número digitado
+                    // para fins de registro.
+                    service.registrarVotoNulo(numCandiadto.toString());
+                    System.out.println("Voto nulo por candidato inexistente registrado com sucesso!");
+                } catch (Exception e) {
+                    System.err.println("Erro ao registrar voto nulo: " + e.getMessage());
+                    lblResult.setText("ERRO AO REGISTRAR VOTO NULO");
+                }
             }
-        } catch (NumberFormatException e) {
+        } 
+         catch (NumberFormatException e) {
+            // --- Lógica para Número Inválido (que também resulta em Voto Nulo) ---
+            // Ocorre se o conteúdo de numCandiadto não puder ser convertido para um número.
             lblResult.setVisible(true);
             lblResult.setText("NÚMERO INVÁLIDO, APERTE CORRIGE");
-            lblAviso1.setVisible(false);
-            lblAviso2.setVisible(false);
+            lblVotouTxt.setVisible(false); // Não exibe "VOTOU" imediatamente, pois o usuário precisa corrigir.
+
+            try {
+                // Registra o voto como nulo devido ao formato inválido.
+                service.registrarVotoNulo(numCandiadto.toString());
+                System.out.println("Voto nulo por número inválido registrado com sucesso!");
+            } catch (Exception ex) {
+                System.err.println("Erro ao registrar voto nulo por formato: " + ex.getMessage());
+                lblResult.setText("ERRO AO REGISTRAR VOTO NULO");
+            }
         }
-    }//GEN-LAST:event_btnConfirmaActionPerformed
-        else{
-            lblResult.setVisible(true);
-            lblResult.setText("DIGITE 5 NÚMEROS OU VOTE EM BRANCO");
-            lblAviso1.setVisible(false);
-            lblAviso2.setVisible(false);
-        }
+    } else {
+        // --- Caso o número de dígitos não seja 5 e não seja voto em branco ---
+        // Isso impede a confirmação se o número não está completo.
+        lblResult.setVisible(true);
+        lblResult.setText("DIGITE 5 NÚMEROS OU VOTE EM BRANCO");
+        lblAviso1.setVisible(false);
+        lblAviso2.setVisible(false);
+        lblVotouTxt.setVisible(false);
     }
+    
+}
+
+ /*         
+    }//GEN-LAST:event_btnConfirmaActionPerformed
+  */      
+           
+
     public static void main(String args[]) {
       
         java.awt.EventQueue.invokeLater(new Runnable() {
