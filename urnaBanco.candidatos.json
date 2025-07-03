@@ -1,0 +1,120 @@
+[{
+  "_id": {
+    "$oid": "6865573a0098d83c57538b25"
+  },
+  "nome": "Golfe",
+  "partido": "PEsp",
+  "numero": 91001
+},
+{
+  "_id": {
+    "$oid": "6865573a0098d83c57538b26"
+  },
+  "nome": "Beisebol",
+  "partido": "PEsp",
+  "numero": 91002
+},
+{
+  "_id": {
+    "$oid": "6865573a0098d83c57538b27"
+  },
+  "nome": "Ginástica artística",
+  "partido": "PEsp",
+  "numero": 91003
+},
+{
+  "_id": {
+    "$oid": "6865bba80098d83c57538b2b"
+  },
+  "nome": "Astronauta",
+  "partido": "PProf",
+  "numero": 93001
+},
+{
+  "_id": {
+    "$oid": "6865bba80098d83c57538b2c"
+  },
+  "nome": "Pintor",
+  "partido": "PProf",
+  "numero": 93002
+},
+{
+  "_id": {
+    "$oid": "6865bba80098d83c57538b2d"
+  },
+  "nome": "Enfermeira",
+  "partido": "PProf",
+  "numero": 93003
+},
+{
+  "_id": {
+    "$oid": "6865c394af0a9f3a89b23b01"
+  },
+  "nome": "Rock",
+  "partido": "PMus",
+  "numero": 92001
+},
+{
+  "_id": {
+    "$oid": "6865c3dfaf0a9f3a89b23b02"
+  },
+  "nome": "Sertanejo",
+  "partido": "PMus",
+  "numero": 92002
+},
+{
+  "_id": {
+    "$oid": "6865c403af0a9f3a89b23b03"
+  },
+  "nome": "MPB",
+  "partido": "PMus",
+  "numero": 92003
+},
+{
+  "_id": {
+    "$oid": "6865c450af0a9f3a89b23b04"
+  },
+  "nome": "Páscoa",
+  "partido": "PFesf",
+  "numero": 94001
+},
+{
+  "_id": {
+    "$oid": "6865c48faf0a9f3a89b23b05"
+  },
+  "nome": "Oktoberfestr",
+  "partido": "PFesf",
+  "numero": 94002
+},
+{
+  "_id": {
+    "$oid": "6865c4adaf0a9f3a89b23b06"
+  },
+  "nome": "Reveillon",
+  "partido": "PFesf",
+  "numero": 94003
+},
+{
+  "_id": {
+    "$oid": "6865c4f0af0a9f3a89b23b07"
+  },
+  "nome": "Curupira",
+  "partido": "PFolc",
+  "numero": 95001
+},
+{
+  "_id": {
+    "$oid": "6865c527af0a9f3a89b23b08"
+  },
+  "nome": "Cabra cabriola",
+  "partido": "PFolc",
+  "numero": 95002
+},
+{
+  "_id": {
+    "$oid": "6865c5b9af0a9f3a89b23b09"
+  },
+  "nome": "Cuca",
+  "partido": "PFolc",
+  "numero": 95003
+}]
