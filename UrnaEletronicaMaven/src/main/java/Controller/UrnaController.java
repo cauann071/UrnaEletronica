@@ -1,4 +1,4 @@
-package Controller;
+/*package Controller;
 
 import br.com.poo.presentation.UrnaEletronica;
 import javax.swing.JLabel;
@@ -23,3 +23,4 @@ public class UrnaController {
         
     }
 }
+*/

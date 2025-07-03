@@ -4,29 +4,26 @@
  */
 package br.com.poo.presentation;
 
-import Controller.UrnaController;
+
+
+import javax.swing.ImageIcon;
 import br.com.poo.mongodb.comoon.vo.Candidato;
 import br.com.poo.mongodb.service.ManterCandidato;
 import javax.swing.JLabel;
-/**
- *
- * @author 232.975989
- */
+
 public class UrnaEletronica extends javax.swing.JFrame {
-    private UrnaController controller;
+   
     private JLabel[] camposNumericos;
     private StringBuilder numCandiadto;
     private ManterCandidato service;
-    /**
-     * Creates new form view
-     */
+    private boolean votoNuloFlag = false;
+
     public UrnaEletronica() {
         initComponents();
         service = new ManterCandidato();
         nomeCandidatoBanco.setText("");
         imageCandidato.setIcon(null);
         numCandiadto = new StringBuilder();
-        controller = new UrnaController();
         lblResult.setVisible(false);
         lblPartido.setVisible(false);
         lblNome.setVisible(false);
@@ -59,7 +56,7 @@ public class UrnaEletronica extends javax.swing.JFrame {
         lblTreinamentoTxt = new javax.swing.JLabel();
         lblNome = new javax.swing.JLabel();
         lblVotoErrado = new javax.swing.JLabel();
-        lblNomeCandidato = new javax.swing.JLabel();
+        nomeCandidatoBanco = new javax.swing.JLabel();
         lblPersonagem = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         lblResult = new javax.swing.JLabel();
@@ -68,7 +65,6 @@ public class UrnaEletronica extends javax.swing.JFrame {
         lblCampo5 = new javax.swing.JLabel();
         lblAviso2 = new javax.swing.JLabel();
         lblPartido = new javax.swing.JLabel();
-        nomeCandidatoBanco = new javax.swing.JLabel();
         imageCandidato = new javax.swing.JLabel();
         lblNomePartido = new javax.swing.JLabel();
         telaTeclado = new javax.swing.JPanel();
@@ -158,7 +154,7 @@ public class UrnaEletronica extends javax.swing.JFrame {
         lblPartido.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblPartido.setText("Partido:");
 
-        imageCandidato.setText("jLabel2");
+        imageCandidato.setLabelFor(imageCandidato);
 
         javax.swing.GroupLayout telaTreinamentoLayout = new javax.swing.GroupLayout(telaTreinamento);
         telaTreinamento.setLayout(telaTreinamentoLayout);
@@ -201,10 +197,8 @@ public class UrnaEletronica extends javax.swing.JFrame {
                         .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(telaTreinamentoLayout.createSequentialGroup()
                                 .addComponent(lblNome)
-                                .addGap(3, 3, 3)
-                                .addComponent(nomeCandidatoBanco)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblNomeCandidato, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(9, 9, 9)
+                                .addComponent(nomeCandidatoBanco, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(telaTreinamentoLayout.createSequentialGroup()
                                 .addComponent(lblPartido)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -260,8 +254,7 @@ public class UrnaEletronica extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(telaTreinamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblNome)
-                            .addComponent(lblNomeCandidato, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nomeCandidatoBanco))
+                            .addComponent(nomeCandidatoBanco, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(52, 52, 52)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -440,6 +433,11 @@ public class UrnaEletronica extends javax.swing.JFrame {
         btnConfirma.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/confirma.jpg"))); // NOI18N
         btnConfirma.setText("1");
         btnConfirma.setBorderPainted(false);
+        btnConfirma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout telaTecladoLayout = new javax.swing.GroupLayout(telaTeclado);
         telaTeclado.setLayout(telaTecladoLayout);
@@ -651,15 +649,16 @@ public class UrnaEletronica extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNum2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum2ActionPerformed
-        controller.adicionarDigitos("2");
-        setDigitosNaTela();
+
         numCandiadto.append("2");
+        setDigitosNaTela();
     }//GEN-LAST:event_btnNum2ActionPerformed
 
     private void btnNum3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum3ActionPerformed
-        controller.adicionarDigitos("3");
-        setDigitosNaTela();
+        
+        
         numCandiadto.append("3");
+        setDigitosNaTela();
     }//GEN-LAST:event_btnNum3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -667,198 +666,298 @@ public class UrnaEletronica extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void btnNum1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum1ActionPerformed
-        controller.adicionarDigitos("1");
-        setDigitosNaTela();
+        
+        
         numCandiadto.append("1");
+        setDigitosNaTela();
     }//GEN-LAST:event_btnNum1ActionPerformed
 
     private void btnNum4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum4ActionPerformed
-        controller.adicionarDigitos("4");
-        setDigitosNaTela();
+       
+        
         numCandiadto.append("4");
+        setDigitosNaTela();
     }//GEN-LAST:event_btnNum4ActionPerformed
 
     private void btnNum6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum6ActionPerformed
-        controller.adicionarDigitos("6");
-        setDigitosNaTela();
+        
+        
         numCandiadto.append("6");
+        setDigitosNaTela();
     }//GEN-LAST:event_btnNum6ActionPerformed
 
     private void btnNum7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum7ActionPerformed
-        controller.adicionarDigitos("7");
-        setDigitosNaTela();
+        
+        
         numCandiadto.append("7");
+        setDigitosNaTela();
     }//GEN-LAST:event_btnNum7ActionPerformed
 
     private void btnNum8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum8ActionPerformed
-        controller.adicionarDigitos("8");
-        setDigitosNaTela();
+        
+        
         numCandiadto.append("8");
+        setDigitosNaTela();
     }//GEN-LAST:event_btnNum8ActionPerformed
 
     private void btnNum9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum9ActionPerformed
-        controller.adicionarDigitos("9");
-        setDigitosNaTela();
+        
+        
         numCandiadto.append("9");
+        setDigitosNaTela();
     }//GEN-LAST:event_btnNum9ActionPerformed
 
     private void btnNum0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum0ActionPerformed
-        controller.adicionarDigitos("0");
-        setDigitosNaTela();
+        
+        
         numCandiadto.append("0");
+        setDigitosNaTela();
     }//GEN-LAST:event_btnNum0ActionPerformed
 
     private void btnBrancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrancoActionPerformed
-        if (camposNumericos[0].getText().isEmpty()) {
-            jSeparator1.setVisible(true);
-            lblResult.setVisible(true);
-            lblAviso1.setVisible(true);
-            lblAviso2.setVisible(true);
-            lblResult.setText("VOTO EM BRANCO");
-            lblAviso1.setText("Aperte a tecla: CONFIRMA para CONFIRMAR este voto");
-            lblAviso2.setText("CORRIGE para REINICIAR este voto");
-        } else {
-            jSeparator1.setVisible(true);
-            lblAviso1.setVisible(true);
-            lblAviso2.setVisible(true);
-            lblAviso1.setText("Para votar em BRANCO o campo de voto deve estar vazio.");
-            lblAviso2.setText("Aperte CORRIGE para apagar o campo de voto.");
-            
+       
+        votoNuloFlag = false;
+        
+        for (JLabel campo : camposNumericos) {
+            campo.setText("");
         }
+        numCandiadto.setLength(0); 
+
+       
+        lblNome.setVisible(false);
+        nomeCandidatoBanco.setText("");
+        nomeCandidatoBanco.setVisible(false);
+        imageCandidato.setIcon(null);
+        imageCandidato.setVisible(false);
+        lblPartido.setVisible(false);
+        lblNomePartido.setText("");
+        lblNomePartido.setVisible(false);
+        lblVotoErrado.setVisible(false);
+        lblVotoErrado.setText("");
+        lblResult.setVisible(true); 
+
+        jSeparator1.setVisible(true);
+        lblResult.setText("VOTO EM BRANCO");
+        lblAviso1.setVisible(true);
+        lblAviso2.setVisible(true);
+        lblAviso1.setText("Aperte a tecla: CONFIRMA para CONFIRMAR este voto");
+        lblAviso2.setText("CORRIGE para REINICIAR este voto");
     }//GEN-LAST:event_btnBrancoActionPerformed
 
     private void btnCorrigeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCorrigeActionPerformed
-        if (lblAviso1.getText() != "" || lblAviso2.getText() != "") {
-            lblAviso1.setVisible(false);
-            lblAviso2.setVisible(false);
-        }
-        if(lblResult.getText() == "VOTO EM BRANCO" ){
-            lblResult.setVisible(false);
-            lblResult.setText("");
-        }
         
+             lblAviso1.setVisible(false);
+        lblAviso2.setVisible(false);
+        lblResult.setVisible(false);
+        lblResult.setText("");
         lblVotoErrado.setVisible(false);
+        lblVotoErrado.setText(""); 
+        lblVotouTxt.setVisible(false); 
+
+        for (JLabel campo : camposNumericos) {
+            campo.setText("");
+        }
+        numCandiadto.setLength(0); 
+        
+        jSeparator1.setVisible(false);
+        lblNomePartido.setVisible(false);
+        lblPartido.setVisible(false);
+        nomeCandidatoBanco.setText(""); 
+        nomeCandidatoBanco.setVisible(false); 
+        imageCandidato.setIcon(null); 
+        imageCandidato.setVisible(false); 
+        lblNome.setVisible(false);
+        lblNomePartido.setText("");
+    }//GEN-LAST:event_btnCorrigeActionPerformed
+
+    public void validacaoPartidoDigitos() {
+        try {
+            // Verifica se há pelo menos 2 dígitos para validar o partido
+            if (numCandiadto.length() >= 2) {
+                int valor1 = Character.getNumericValue(numCandiadto.charAt(0));
+                int valor2 = Character.getNumericValue(numCandiadto.charAt(1));
+
+                lblVotoErrado.setVisible(false); 
+                lblNomePartido.setText(""); 
+
+                if (valor1 == 9) {
+                    lblPartido.setVisible(true);
+                    lblNomePartido.setVisible(true);
+
+                    switch (valor2) {
+                        case 1 -> lblNomePartido.setText("PEsp");
+                        case 2 -> lblNomePartido.setText("PMus");
+                        case 3 -> lblNomePartido.setText("PProf");
+                        case 4 -> lblNomePartido.setText("PFest");
+                        case 5 -> lblNomePartido.setText("PFolc");
+                        default -> {
+                            lblNomePartido.setText(""); 
+                            lblVotoErrado.setVisible(true);
+                            lblVotoErrado.setText("PARTIDO N\u00c3O ENCONTRADO");
+                        }
+                    }
+                } else {
+                    lblPartido.setVisible(false); 
+                    lblNomePartido.setVisible(false); 
+                }
+            } else {
+                lblPartido.setVisible(false);
+                lblNomePartido.setVisible(false);
+            }
+        } catch (Exception e) {
+            System.out.println("ERRO na validação do partido: " + e.getMessage());
+        }
+    }
+   
+    public void validacaoCandidatos(){
+        
+       try {
+           if (numCandiadto.length() == 5) {
+                int valor1 = Character.getNumericValue(numCandiadto.charAt(2));
+                int valor2 = Character.getNumericValue(numCandiadto.charAt(3));
+                int valor3 = Character.getNumericValue(numCandiadto.charAt(4));
+
+                lblVotoErrado.setVisible(false); 
+
+                
+                if (valor1 != 0 || valor2 != 0 || valor3 == 0 || valor3 > 3) {
+                    
+                }
+           }
+        } catch (Exception e) {
+            System.out.println("ERRO na validação dos últimos 3 dígitos: " + e.getMessage());
+        }
+    }
+
+    
+     public void setDigitosNaTela() {
+        String valorString = numCandiadto.toString();
+
         
         for (int i = 0; i < camposNumericos.length; i++) {
             camposNumericos[i].setText("");
         }
-        controller.limpar();
-        jSeparator1.setVisible(false);
-        lblNomePartido.setVisible(false);
-        lblPartido.setVisible(false);
-    }//GEN-LAST:event_btnCorrigeActionPerformed
 
-public void validacaoPartidoDigitos(){
-        int valor1 = Integer.parseInt(camposNumericos[0].getText());
-        int valor2 = Integer.parseInt(camposNumericos[1].getText());
         
-        try {
+        for (int i = 0; i < valorString.length(); i++) {
+            camposNumericos[i].setText(String.valueOf(valorString.charAt(i)));
+        }
+
         
-        if(valor1 < 9 || valor2 < 1 || valor2 > 5){
-            lblVotoErrado.setVisible(true);
-            lblVotoErrado.setText("NÚMERO ERRADO");
+        lblNome.setVisible(false);
+        nomeCandidatoBanco.setText("");
+        imageCandidato.setIcon(null);
+        imageCandidato.setVisible(false);
+        lblVotoErrado.setVisible(false);
+        lblPartido.setVisible(false);
+        lblNomePartido.setVisible(false);
+        lblNomePartido.setText(""); 
+
+        if (valorString.length() >= 2) { 
+            validacaoPartidoDigitos();
         }
-        
-        if(valor1 == 9 && valor2 == 1){
-            lblPartido.setVisible(true);
-            lblNomePartido.setVisible(true);
-            lblNomePartido.setText("PEsp");
-        }
-        else if(valor1 == 9 && valor2 == 2){
-            lblPartido.setVisible(true);
-            lblNomePartido.setVisible(true);
-            lblNomePartido.setText("PMus");
-        }
-        else if(valor1 == 9 && valor2 == 3){
-            lblPartido.setVisible(true);
-            lblNomePartido.setVisible(true);
-            lblNomePartido.setText("PProf");
-        }
-        else if(valor1 == 9 && valor2 == 4){
-            lblPartido.setVisible(true);
-            lblNomePartido.setVisible(true);
-            lblNomePartido.setText("PFest");
-        }
-        else if(valor1 == 9 && valor2 == 5){
-            lblPartido.setVisible(true);
-            lblNomePartido.setVisible(true);
-            lblNomePartido.setText("PFolc");
-        }
-        
-        validacaoCandidatos();
-        
-        } catch (Exception e) {
-            System.out.println("ERRO");
-            
-        }
-    }
-    
-    public void validacaoCandidatos(){
-        try {
-            int valor1 = Integer.parseInt(camposNumericos[2].getText());
-            int valor2 = Integer.parseInt(camposNumericos[3].getText());
-            int valor3 = Integer.parseInt(camposNumericos[4].getText());
-            
-            if(valor1 != 0 || valor2 != 0 || valor3 == 0 || valor3 > 3){
+
+        if (valorString.length() == 5) {
+           
+            validacaoCandidatos(); 
+
+            try {
+                int numero = Integer.parseInt(valorString);
+                Candidato vo = service.findByNumber(numero);
+
+                if (vo != null) {
+                    lblNome.setVisible(true); 
+                    nomeCandidatoBanco.setVisible(true);
+                    nomeCandidatoBanco.setText(vo.getNome());
+                    
+                    
+                    String imagePath = "/images/" + vo.getNumCandidato() + ".png";
+                    java.net.URL imageUrl = getClass().getResource(imagePath);
+                    if (imageUrl != null) {
+                        imageCandidato.setIcon(new ImageIcon(imageUrl));
+                        imageCandidato.setVisible(true); 
+                    } else {
+                        imageCandidato.setIcon(null); 
+                        imageCandidato.setVisible(false); 
+                        System.out.println("Imagem não encontrada para o candidato: " + vo.getNumCandidato());
+                    }
+
+                    
+                    lblResult.setVisible(false);
+                    lblResult.setText("");
+                    lblAviso1.setVisible(false);
+                    lblAviso2.setVisible(false);
+                    lblVotoErrado.setVisible(false);
+                    
+                } else {
+                    
+                    lblVotoErrado.setVisible(true);
+                    lblVotoErrado.setText("CANDIDATO INEXISTENTE");
+                    lblNome.setVisible(false); 
+                    nomeCandidatoBanco.setText("");
+                    nomeCandidatoBanco.setVisible(false); 
+                    imageCandidato.setIcon(null); 
+                    imageCandidato.setVisible(false);
+                }
+            } catch (NumberFormatException e) {
                 lblVotoErrado.setVisible(true);
-                lblVotoErrado.setText("CANDIDATO INEXISTENTE");
+                lblVotoErrado.setText("NÚMERO INVÁLIDO");
+                System.err.println("Erro de formato de número: " + e.getMessage());
             }
-        } catch (Exception e) {
-            
         }
     }
     
     private void btnNum5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNum5ActionPerformed
-        controller.adicionarDigitos("5");
-        setDigitosNaTela();
+        
+       
         numCandiadto.append("5");
+        setDigitosNaTela();
     }//GEN-LAST:event_btnNum5ActionPerformed
 
-    public void setDigitosNaTela(){
-        String valorString = controller.getNumDigitados().toString();
-        
-        for (int i = 0; i < controller.getNumDigitados().length() && i < camposNumericos.length ; i++) {
-            camposNumericos[i].setText(String.valueOf(valorString.charAt(i)));
+    private void btnConfirmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmaActionPerformed
+        if (numCandiadto.length() == 0) {
+            lblResult.setVisible(true);
+            lblResult.setText("VOTO EM BRANCO CONFIRMADO");
+            lblAviso1.setVisible(false); 
+            lblAviso2.setVisible(false);
+//REGISTRAR VOTO EM BRANCO AQUI
+            return;
         }
-        
-        validacaoPartidoDigitos();
-    }
-    
-    private void btnConfirmaActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        Candidato vo = service.findByNumber(Integer.parseInt(numCandiadto.toString()));
-        nomeCandidatoBanco.setText(vo.getNome());
-        imageCandidato.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/" + vo.getNumCandidato() + ".png")));
-
-    } 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+        if(numCandiadto.length()==5){
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UrnaEletronica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UrnaEletronica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UrnaEletronica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UrnaEletronica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+            int numero = Integer.parseInt(numCandiadto.toString());
+            Candidato vo = service.findByNumber(numero);
 
-        /* Create and display the form */
+            if (vo != null) {
+                lblResult.setVisible(true);
+                lblResult.setText("VOTO CONFIRMADO");
+                lblAviso1.setVisible(true);
+                lblAviso2.setVisible(false);
+                // Registrar voto no banco 
+                //service.registrarVoto(vo);
+
+            } else {
+                lblResult.setVisible(true);
+                lblResult.setText("CANDIDATO NÃO ENCONTRADO, APERTE CORRIGE");
+                lblAviso1.setVisible(false);
+                lblAviso2.setVisible(false);
+            }
+        } catch (NumberFormatException e) {
+            lblResult.setVisible(true);
+            lblResult.setText("NÚMERO INVÁLIDO, APERTE CORRIGE");
+            lblAviso1.setVisible(false);
+            lblAviso2.setVisible(false);
+        }
+    }//GEN-LAST:event_btnConfirmaActionPerformed
+        else{
+            lblResult.setVisible(true);
+            lblResult.setText("DIGITE 5 NÚMEROS OU VOTE EM BRANCO");
+            lblAviso1.setVisible(false);
+            lblAviso2.setVisible(false);
+        }
+    }
+    public static void main(String args[]) {
+      
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new UrnaEletronica().setVisible(true);
@@ -908,7 +1007,6 @@ public void validacaoPartidoDigitos(){
     private javax.swing.JLabel lblCampo4;
     private javax.swing.JLabel lblCampo5;
     private javax.swing.JLabel lblNome;
-    private javax.swing.JLabel lblNomeCandidato;
     private javax.swing.JLabel lblNomePartido;
     private javax.swing.JLabel lblPartido;
     private javax.swing.JLabel lblPersonagem;

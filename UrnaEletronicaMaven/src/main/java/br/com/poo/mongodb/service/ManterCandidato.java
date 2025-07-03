@@ -1,23 +1,27 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package br.com.poo.mongodb.service;
 
 import br.com.poo.mongodb.comoon.vo.Candidato;
 import br.com.poo.mongodb.persistence.MongoDAO;
 
-/**
- *
- * @author nirto
- */
 public class ManterCandidato {
 
-    MongoDAO dao = new MongoDAO();
+    private MongoDAO dao;
+
+    public ManterCandidato() {
+        dao = new MongoDAO();
+    }
 
     public Candidato findByNumber(int num) {
-
         return dao.findByNumber(num);
     }
 
+    // Novo método para registrar voto nulo
+    public void registrarVotoNulo(String numeroDigitado) {
+        dao.registrarVotoNulo(numeroDigitado);
+    }
+
+    // Novo método para registrar voto em branco
+    public void registrarVotoBranco() {
+        dao.registrarVotoBranco();
+    }
 }
