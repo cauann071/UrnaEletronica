@@ -9,7 +9,7 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import org.bson.conversions.Bson;
-
+import java.util.Map;
 import java.util.Date;
 public class ManterCandidato {
 
@@ -38,5 +38,9 @@ public class ManterCandidato {
     // Novo método para registrar voto em branco
     public void registrarVotoBranco() {
         dao.registrarVotoBranco();
+    }
+    
+    public Map<String, Long> gerarRelatorioVotos() {
+        return dao.gerarRelatorioVotos();
     }
 }

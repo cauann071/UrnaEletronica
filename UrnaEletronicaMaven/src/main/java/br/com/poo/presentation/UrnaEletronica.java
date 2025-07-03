@@ -10,7 +10,8 @@ import javax.swing.ImageIcon;
 import br.com.poo.mongodb.comoon.vo.Candidato;
 import br.com.poo.mongodb.service.ManterCandidato;
 import javax.swing.JLabel;
-
+import javax.swing.JOptionPane;
+import java.util.Map;
 public class UrnaEletronica extends javax.swing.JFrame {
    
     private JLabel[] camposNumericos;
@@ -943,6 +944,7 @@ public class UrnaEletronica extends javax.swing.JFrame {
         lblAviso2.setVisible(false);
         lblVotoErrado.setVisible(false); 
         lblResult.setText("");
+        boolean votoRegistrado = false;
         
         if (numCandiadto.length() == 0) {
             lblResult.setVisible(true);
@@ -1017,9 +1019,57 @@ public class UrnaEletronica extends javax.swing.JFrame {
         lblAviso2.setVisible(false);
         lblVotouTxt.setVisible(false);
     }
+        if (votoRegistrado) {
+            // Damos um pequeno atraso para o usuário ler a mensagem de "VOTO CONFIRMADO"
+            // Isso pode ser feito com um Timer ou Thread.sleep, mas Thread.sleep congela a UI.
+            // Para um JFrame simples, JOptionPane é mais prático.
+            int escolha = JOptionPane.showConfirmDialog(this,
+                    "Voto registrado com sucesso!\nDeseja realizar um novo voto?",
+                    "Continuar Votando?", JOptionPane.YES_NO_OPTION);
+
+            if (escolha == JOptionPane.YES_OPTION) {
+                // Se o usuário quer um novo voto, limpa a tela para a próxima votação.
+                btnCorrigeActionPerformed(null);
+            } else {
+                // Se o usuário não quer um novo voto, gera o relatório e encerra a aplicação.
+                gerarRelatorioEEncerrar();
+            }
+        }
     
 }
 
+    private void gerarRelatorioEEncerrar() {
+        // Obtém o relatório de votos do serviço
+        java.util.Map<String, Long> relatorio = service.gerarRelatorioVotos();
+
+        StringBuilder relatorioMsg = new StringBuilder();
+        relatorioMsg.append("--- RELATÓRIO DE VOTAÇÃO ---\n");
+        relatorioMsg.append("Votos Válidos: ").append(relatorio.getOrDefault("votosValidos", 0L)).append("\n");
+        relatorioMsg.append("Votos Brancos: ").append(relatorio.getOrDefault("votosBrancos", 0L)).append("\n");
+        relatorioMsg.append("Votos Nulos: ").append(relatorio.getOrDefault("votosNulos", 0L)).append("\n");
+        relatorioMsg.append("\n--- Votos por Candidato ---\n");
+
+        // Itera sobre as chaves do mapa para encontrar os votos de cada candidato
+        for (Map.Entry<String, Long> entry : relatorio.entrySet()) {
+            if (entry.getKey().startsWith("votosCandidato_")) {
+                // Formato da chave: "votosCandidato_NUMERO_NOME"
+                String[] parts = entry.getKey().split("_", 3); // Divide em 3 partes: prefixo, numero, nome
+                if (parts.length == 3) {
+                    relatorioMsg.append("Candidato ").append(parts[1])
+                                .append(" (").append(parts[2]).append("): ")
+                                .append(entry.getValue()).append(" votos\n");
+                }
+            }
+        }
+
+        // Exibe o relatório em uma caixa de diálogo
+        JOptionPane.showMessageDialog(this, relatorioMsg.toString(),
+                "Relatório Final da Urna", JOptionPane.INFORMATION_MESSAGE);
+
+        // Encerra a aplicação
+        System.exit(0);
+    }
+    
  /*         
     }//GEN-LAST:event_btnConfirmaActionPerformed
   */      

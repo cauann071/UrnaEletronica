@@ -9,8 +9,10 @@ import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import com.mongodb.client.model.Updates;
-import java.util.Date; // Importar para usar timestamps
-
+import java.util.Date; 
+import java.util.HashMap;
+import java.util.Map;
+import com.mongodb.client.AggregateIterable; 
 /**
  *
  * @author nirto
@@ -159,6 +161,49 @@ public class MongoDAO {
             close(); // Fecha a conexão
         }
     }
+    
+     public Map<String, Long> gerarRelatorioVotos() {
+        connect();
+        Map<String, Long> relatorio = new HashMap<>();
+        try {
+            MongoCollection<Document> votosCollection = database.getCollection("votos");
+            MongoCollection<Document> candidatosCollection = database.getCollection("candidatos");
 
+            // Contar votos brancos
+            long votosBrancos = votosCollection.countDocuments(Filters.eq("tipoVoto", "BRANCO"));
+            relatorio.put("votosBrancos", votosBrancos);
+
+            // Contar votos nulos
+            long votosNulos = votosCollection.countDocuments(Filters.eq("tipoVoto", "NULO"));
+            relatorio.put("votosNulos", votosNulos);
+
+            // Contar votos válidos (somando os campos 'votos' dos candidatos)
+            // Ou, alternativamente, contando os documentos com tipoVoto CANDIDATO
+            long votosValidosPorRegistro = votosCollection.countDocuments(Filters.eq("tipoVoto", "CANDIDATO"));
+            relatorio.put("votosValidos", votosValidosPorRegistro);
+
+            // Exemplo de como obter votos por candidato diretamente da coleção de candidatos:
+            // Isso assume que o campo "votos" na coleção "candidatos" é atualizado corretamente.
+            System.out.println("\n--- Votos por Candidato (Detalhado) ---");
+            candidatosCollection.find().forEach(doc -> {
+                String nome = doc.getString("nome");
+                int numero = doc.getInteger("numero");
+                // Garante que o campo 'votos' existe e é um número (Long, Integer, Double)
+                // Usar get("votos", Long.class) é mais seguro para diferentes tipos numéricos
+                Long votos = doc.get("votos", Long.class);
+                if (votos == null) {
+                    votos = 0L; // Se o campo não existir, assume 0 votos
+                }
+                relatorio.put("votosCandidato_" + numero + "_" + nome, votos);
+                System.out.println("Candidato " + numero + " - " + nome + ": " + votos + " votos.");
+            });
+
+        } catch (Exception e) {
+            System.err.println("Erro ao gerar relatório de votos: " + e.getMessage());
+        } finally {
+            close();
+        }
+        return relatorio;
+    }
    
 }
